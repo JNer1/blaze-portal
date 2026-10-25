@@ -1,6 +1,6 @@
 # Prioritized development units
 
-Status: D02/D03 approved 2026-10-26. U02 implemented on branch `u02-foundation`, awaiting user review. Next proposed: local salary request form and preview (part of U07, no Google or persistence), with U01 on the synthetic test account. Other units remain proposals.
+Status: D02/D03 approved 2026-10-26. U02 implemented and merged. U07a (local salary request form, server check, and letter preview; no Google or persistence) implemented on branch `feat/salary-request-form`, awaiting review. Next candidates: U01 on the synthetic test account, then U03 persistence. Other units remain proposals.
 
 Each unit below has a preliminary plan and acceptance criteria. Immediately before execution, present a concrete plan with affected files/components, fixtures, test commands, dependencies, and unresolved questions. Split units further if they cannot be reviewed independently. Acceptance means demonstrated behavior, not merely written code.
 
@@ -69,6 +69,10 @@ Acceptance: exactly one salary request-letter plan is produced; no extra cover l
 Plan: build a multi-staff salary draft, per-person periods and exact PHP amounts under agreed rules, one LE entry, and review of one request letter. Supporting checklists remain advisory. Use synthetic examples, not source PDF TINs or compensation.
 
 Acceptance: valid synthetic input round-trips; invalid data is rejected server-side; another project cannot read or edit the draft; review reflects all selected staff, differing coverage, LE values, reviewed amounts, and correct signature blocks; unsupported calculations are flagged without invented payroll rules. Dependencies: U06b and approved field contracts.
+
+**U07a — Local salary request form and preview (implemented 2026-10-26, awaiting review)**
+
+Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; enclosures selected separately; `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
 
 **U08 — Generate and reconcile a Google document**
 
