@@ -28,7 +28,9 @@ These answers refine scope and feasibility without requiring institutional finan
 - **Standby administrator:** the most senior staff member, appointed by an existing administrator when needed.
 - Proposed: only an existing administrator can appoint or remove administrators, and the app never allows removal of the last remaining administrator.
 
-Still open: initial staff members, permitted actions per role, and removal/expiry expectations. Proposed roles are administrator, staff, and optional viewer.
+- **Record keeping:** the administrative aide primarily maintains staff records (including TIN). Paid staff do not need app accounts.
+
+Still open: initial staff members, the aide's role and permitted actions per role, and removal/expiry expectations. Proposed roles are administrator, staff, and optional viewer.
 
 **D05 — Google ownership and authorization (before integration implementation).** Direction answered 2026-10-26:
 
@@ -63,6 +65,8 @@ For each reviewed decision, append its identifier, outcome (approved/revised/def
 2026-10-26 — D03: approved by the user. Start Construction with U02 (development foundation) plus a local salary request form, calculations, and letter preview that need no Google access; run U01 on the synthetic test account in parallel. Each unit still gets a plan and acceptance review before implementation.
 
 2026-10-26 — Salary calculations confirmed: whole-month payments, multi-month and advance requests allowed, app calculates per-staff and grand totals, TIN shown and stored on user profiles. See [Salary Request](08-salary-request.md).
+
+2026-10-26 — Salary follow-up: no grand total (per-staff totals only). Not all paid staff sign in; the administrative aide keeps staff records, so staff records are separate from user accounts.
 
 2026-10-26 — D05: direction approved by the user (project Google account owns templates and outputs; staff use personal Google accounts for sign-in; test account with synthetic data approved for early development). Scopes, token handling, and sharing rules remain subject to U01 evidence. D04: partly answered (personal-account sign-in; administrator assigns roles; Javier Neri is first administrator, project account is second, senior staff member is standby). See [architecture](02-architecture.md#identity-and-google-authorization).
 
