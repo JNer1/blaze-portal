@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { healthResponseSchema } from "@/shared/health";
-import { Button } from "./components/ui/button";
+import { SalaryRequestPage } from "./salary/SalaryRequestPage";
 
 type ApiState = "checking" | "ok" | "unavailable";
 
@@ -24,31 +24,29 @@ const statusText: Record<ApiState, string> = {
 export function App() {
   const [api, setApi] = useState<ApiState>("checking");
 
-  const check = () => {
-    setApi("checking");
-    void fetchHealth().then(setApi);
-  };
-
   useEffect(() => {
     void fetchHealth().then(setApi);
   }, []);
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center gap-6 p-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">BlAzE Portal</h1>
-        <p className="text-muted-foreground mt-2">
-          Research administration tools. Development build — no features yet.
-        </p>
-      </div>
-      <div className="flex items-center gap-4">
-        <p role="status" data-state={api} className="font-medium">
-          {statusText[api]}
-        </p>
-        <Button variant="outline" size="sm" onClick={check}>
-          Check again
-        </Button>
-      </div>
-    </main>
+    <div className="min-h-screen">
+      <header className="border-b">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+          <h1 className="text-lg font-semibold tracking-tight">BlAzE Portal</h1>
+          <p data-testid="api-status" data-state={api} className="text-muted-foreground text-sm">
+            {statusText[api]}
+          </p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-7xl px-6 py-8">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold tracking-tight">Salary request</h2>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Development build. Nothing is saved; use made-up data only.
+          </p>
+        </div>
+        <SalaryRequestPage />
+      </main>
+    </div>
   );
 }
