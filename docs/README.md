@@ -33,4 +33,4 @@ The brief confirms the problem, intended context, quality priorities, lifecycle,
 
 Maintain approved decisions in [the decision register](05-review-decisions.md). Add a numbered architecture decision record when a significant decision is approved, including context, alternatives, decision, consequences, date, and approver. Keep proposals visibly separate from accepted decisions. Update the backlog and specifications alongside implemented behavior.
 
-Current checkpoint: **Awaiting Inception review. Construction has not begun.**
+Current checkpoint: **Construction started 2026-10-26.** D02 and D03 approved; U02 (development foundation) approved and in progress. See [the decision register](05-review-decisions.md).

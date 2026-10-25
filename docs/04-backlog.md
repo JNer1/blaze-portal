@@ -14,7 +14,7 @@ Acceptance: user approves a worked synthetic input/output example and MVP bounda
 
 **U01 — Validate Google integration and free-plan feasibility (first possible Construction unit)**
 
-Plan: with approved test accounts/resources, run a bounded technical experiment for scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
+Plan: using the approved synthetic-data test Google account (standing in for the project account) plus a separate personal test account for staff sign-in, run a bounded technical experiment for `drive.file` sufficiency, template access, OAuth publishing status, scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
 
 Acceptance: one synthetic document generated without master modification; effective access and credential revocation checked; retry risks demonstrated; quota sources dated; ownership, required scopes, runtime feasibility, and blockers documented. No production deployment. Dependencies: U00, approved experiment plan and test-resource authorization.
 

@@ -48,9 +48,21 @@ Missing supporting items are different from an incomplete generation attempt: th
 - Per staff: name, designation, required identifier fields, coverage dates or month/year range, monthly PHP amount, payable duration, requested total, and advisory checklist states/notes.
 - Per letter: destination, LE number as issued, reviewed recipient/title, body/template, and prescribed signature blocks.
 
-Confirm whether TIN is required and how it should be displayed; minimize collection and exclude it from routine logs. A staff directory is optional future convenience, not a dependency for preparing the first letter. Supporting-file uploads are not required by the confirmed scope.
+Confirmed 2026-10-26: TIN is required and shown in the letter's staff table. The user wants TIN stored with each person's profile so it pre-fills when creating a salary request. Proposed handling:
 
-For whole-month amounts, propose exact decimal/integer-centavo arithmetic with displayed per-staff calculations. Review entered totals against monthly amount times explicit payable months, and avoid binary floating-point calculations. Do not derive months by blindly subtracting dates. Partial-month treatment, rounding, deductions, and corrections are unresolved: flag unsupported calculations rather than inventing payroll rules. This is salary-request preparation, not payroll processing or an accounting ledger. No gratuity, hazard-pay, or honorarium calculations are included in this slice.
+- A person can enter/edit their own TIN in their profile; administrators can also see and edit it. Other staff cannot view another person's TIN except inside a salary request they are permitted to prepare.
+- Accept 9 digits plus an optional 3-digit branch code and display as `000-000-000` or `000-000-000-000`; do not claim the number is valid with BIR.
+- The letter uses a snapshot of the TIN taken when the request is prepared, so later profile changes do not silently alter earlier letters. Pre-filled values remain editable on the request.
+- Mask TIN in lists, exclude it from logs and audit metadata, and use synthetic TINs in all tests.
+
+Open: are all paid research staff app users, or does an administrator also need to keep profiles for staff who never sign in? Profile pre-fill needs sign-in and persistence (U03–U05); until then the local form takes TIN as typed input. Supporting-file uploads are not required by the confirmed scope.
+
+Confirmed 2026-10-26: one salary payment covers one whole month. A request may cover several months, including additional months requested in advance, and coverage can differ per staff. The app calculates the totals.
+
+- Per staff: total = monthly amount × number of covered months. Months are counted inclusively from the coverage start month/year to end month/year (for example, May 2025 – Feb 2026 = 10 months), never by subtracting day-level dates.
+- The app also calculates the grand total across all staff. Proposed: show it in the review screen and in the letter if the reviewed template includes a total row.
+- Money is stored and calculated as integer centavos; amounts display as PHP with two decimals. No floating-point arithmetic.
+- Partial months, prorating, deductions, and benefits are out of scope. The form accepts only whole months. This is salary-request preparation, not payroll processing or an accounting ledger. No gratuity, hazard-pay, or honorarium calculations are included in this slice.
 
 Review the request letter, including all staff rows, individualized periods, amounts, actual enclosure statements, names/titles, LE placement, and signature blocks. Retain the sample's Dr. Papa and Dr. Tongol blocks as the proposed request-letter layout, subject to template review; the correction changes the number/type of letters, not an explicitly supplied replacement signature layout. Changes to request data must identify previously generated output as based on an earlier revision; regenerated documents preserve prior provenance.
 
@@ -76,8 +88,9 @@ Review the request letter, including all staff rows, individualized periods, amo
 
 ## Questions needed to finish the workflow example
 
-1. Do revisions/reissues of the same letter retain its LE number? Per-individual-letter allocation is confirmed and no longer an open question.
-2. Are salary requests always whole-month payments? Confirm whether TIN, individual totals, and a grand total are required, and whether the app calculates them or staff supply approved figures.
+1. Do revisions/reissues of the same letter retain its LE number? Per-individual-letter allocation is confirmed and no longer an open question. Proposed default: regenerating the same letter keeps its LE; a formal reissue is flagged for the user.
+2. ~~Whole months, totals, TIN~~ Answered 2026-10-26; see above.
+3. Does the letter show a grand total row? Are all paid staff app users?
 
 Latest user correction: Salary Request generates one request letter only; separate RCNAS/OVRF cover letters are removed. Each individual letter has its own RCNAS-issued LE number. Earlier two-letter requirements are superseded.
 

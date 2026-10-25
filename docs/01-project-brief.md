@@ -69,6 +69,6 @@ One person may hold several responsibilities. Reviewer, finance, procurement, an
 
 - A single pilot project can demonstrate value before broader rollout.
 - Salary Request and its single request-letter output are confirmed; template details, LE revision/reissue behavior, and salary field/calculation rules still need review.
-- Users can access suitable Google accounts, and institutional administrators permit the required integration.
+- Confirmed 2026-10-26: staff sign in with personal Google accounts; a team-managed project Google account (outside the university subscription) owns templates and generated letters. No institutional Google administrator approval is needed for this model; whether the institution has policies on where such records may be stored remains open (D07).
 - The initial template uses manageable placeholders; complex tables, signatures, and attachments may change feasibility.
 - Users remain connected to the internet, and manual Google Docs editing after generation is acceptable. Whether edited outputs need to be synchronized or frozen is unresolved.

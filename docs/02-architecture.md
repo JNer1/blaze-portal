@@ -24,7 +24,12 @@ Use an exact redirect URI, OAuth state validation, nonce where applicable, and P
 
 Keep sign-in authorization distinct from permission to edit Docs or access Drive. Choose the narrowest Google scopes that support the approved workflow. Validate whether `drive.file` plus explicit file selection/app-created files covers the required templates and folders before requesting broader access.
 
-**Unresolved ownership decision:** delegated user credentials versus an institution-managed integration identity. Determine whose credentials perform generation, who owns files, whether Shared Drives are available, and what happens when staff leave or revoke consent. Do not assume service accounts can own files in personal Drive or that domain-wide delegation is available. Background refresh access, if necessary, requires protected token storage, revocation handling, and an agreed credential owner.
+**Account model (user direction, 2026-10-26; details pending U01):** the team uses no Google Workspace. A standalone project Google account, managed by the team, owns templates and outputs. That makes two separate Google connections:
+
+1. **Staff sign-in:** each person uses a personal Google account with only `openid email profile`. The app identifies members by Google's stable account ID (`sub`), not by email alone. An administrator invites a person and assigns the role; signing in without an assigned role gives no access.
+2. **Document generation:** an administrator connects the project account once. The server stores its refresh token encrypted, never sends it to the browser, and uses it to copy templates and fill letters. Proposed scope: `drive.file` only, so the app can reach only files it created or was explicitly given. U01 must confirm the Docs API works under that scope and how the template is granted (uploaded through the app or chosen once with Google Picker).
+
+To verify in U01: publishing status and whether Google requires verification for these scopes (apps left in "Testing" can have short-lived refresh tokens), the project account's Drive storage limit, and a reconnection procedure for revoked access or credential changes. Staff remain able to open files shared with them directly in Drive; that sharing sits outside the app's access control.
 
 ## Document generation and recovery
 

@@ -1,6 +1,6 @@
 # Review decisions and clarification register
 
-Updated: 2026-10-22, incorporating the latest correction. Salary Request generates one consolidated request letter addressed to OVRF, without additional RCNAS/OVRF cover letters. Per-staff checklists are advisory. Each individual letter has its own RCNAS-issued LE number, so salary needs one. All workbook expense categories route to OVRF. Other decisions remain pending; no Construction or architecture approval is inferred.
+Updated: 2026-10-22, incorporating the latest correction. Salary Request generates one consolidated request letter addressed to OVRF, without additional RCNAS/OVRF cover letters. Per-staff checklists are advisory. Each individual letter has its own RCNAS-issued LE number, so salary needs one. All workbook expense categories route to OVRF. Google account model answered 2026-10-26 (D05, part of D04). Other decisions remain pending; no Construction or architecture approval is inferred.
 
 ## Decisions requested for the next checkpoint
 
@@ -12,18 +12,31 @@ Updated: 2026-10-22, incorporating the latest correction. Salary Request generat
 
 ## Clarifications needed before the first Construction plan
 
-1. Which salary fields/calculation rules are required, and do revisions/reissues of the same letter retain its LE? One LE per distinct letter is confirmed, and an RCNAS cover-letter template is no longer needed. See [the remaining salary questions](08-salary-request.md).
+1. ~~Which salary fields/calculation rules are required?~~ Answered 2026-10-26 (whole months, app calculates totals, TIN shown and stored on profiles). Still open: do revisions/reissues of the same letter retain its LE? One LE per distinct letter is confirmed, and an RCNAS cover-letter template is no longer needed. See [the remaining salary questions](08-salary-request.md).
 2. Is the pilot for one project? Approximately how many users and documents per week, including peak days?
-3. Do staff use personal Google accounts, university Google Workspace accounts, or both? Is a Shared Drive or institution-managed account available, and who can authorize integration/test resources?
+3. ~~Do staff use personal Google accounts, university Google Workspace accounts, or both?~~ Answered 2026-10-26: no Google Workspace. The team manages its own standalone project Google account, which holds the shared files. Staff sign in with personal Google accounts. See D05.
 4. Who will own the product decisions and who can maintain the application and Google/Cloudflare accounts?
 
 These answers refine scope and feasibility without requiring institutional financial or approval rules to be invented.
 
 ## Decisions to resolve before affected units
 
-**D04 — Roles and access (before U04–U05).** Confirm initial members, who appoints administrators, permitted actions, identity restrictions, and removal/expiry expectations. Proposed roles are administrator, staff, and optional viewer.
+**D04 — Roles and access (before U04–U05).** Partly answered 2026-10-26: staff sign in with their personal Google accounts, and an administrator assigns each person's role. Login alone grants no access. Administrators answered 2026-10-26:
 
-**D05 — Google ownership and authorization (before integration implementation).** Choose the credential owner, template/output locations, sharing rules, required scopes, consent approach, and account-departure handling based on U01 evidence. Broad scopes or domain-wide delegation are not pre-approved.
+- **First administrator:** Javier Neri, signing in with a personal Google account. This account is set up as the starting administrator through deployment configuration, not hard-coded or self-registered.
+- **Second administrator:** the project Google account. Because several people can use it, its actions are logged as "project account" rather than as an individual. Proposed use: backup/recovery administrator when no individual administrator is available, not day-to-day work.
+- **Standby administrator:** the most senior staff member, appointed by an existing administrator when needed.
+- Proposed: only an existing administrator can appoint or remove administrators, and the app never allows removal of the last remaining administrator.
+
+Still open: initial staff members, permitted actions per role, and removal/expiry expectations. Proposed roles are administrator, staff, and optional viewer.
+
+**D05 — Google ownership and authorization (before integration implementation).** Direction answered 2026-10-26:
+
+- The team's standalone **project Google account** (not under the university subscription, managed by the team) owns master templates and generated letters. The app generates documents as that account. Staff mainly work with files in that account.
+- **Staff sign in with personal Google accounts** for identity only. The app requests no Drive/Docs access from staff accounts.
+- A **separate test Google account with synthetic data only** is approved for U01 and early development.
+
+Still to settle from U01 evidence: exact scopes (proposed `drive.file` only), how the app gains access to the template, OAuth publishing status, encrypted token storage and reconnection, Drive folder and sharing rules, and who holds the project account's credentials and recovery options. Broad scopes are not pre-approved.
 
 **D06 — Document semantics (before U06–U08).** Approve the field contract, template version strategy, duplicate/retry behavior, and whether staff may edit generated outputs. Decide whether external edits need tracking or whether original generation provenance is sufficient. Institutional approval statuses remain deferred unless explicitly defined.
 
@@ -44,5 +57,13 @@ These answers refine scope and feasibility without requiring institutional finan
 For each reviewed decision, append its identifier, outcome (approved/revised/deferred/rejected), exact scope, conditions, approver, and date. Link any resulting architecture decision record and affected specification/backlog units. Unresolved decisions stay pending and block only the work that depends on them.
 
 2026-10-22 requirement update: the latest user correction supersedes the earlier two-cover-letter salary interpretation. Salary generates one consolidated request letter only, with advisory per-staff checks and one RCNAS-issued LE. Every distinct letter, even for the same request, has its own LE. Template/calculation details and same-letter revision/reissue behavior remain pending. This records business requirements, not approval to start Construction.
+
+2026-10-26 — D02: approved by the user. Keep the proposed stack (React/Vite/TypeScript, Hono on one Cloudflare Worker, D1 with Drizzle, same-origin assets), subject to U01 feasibility. Does not approve production deployment or migrations.
+
+2026-10-26 — D03: approved by the user. Start Construction with U02 (development foundation) plus a local salary request form, calculations, and letter preview that need no Google access; run U01 on the synthetic test account in parallel. Each unit still gets a plan and acceptance review before implementation.
+
+2026-10-26 — Salary calculations confirmed: whole-month payments, multi-month and advance requests allowed, app calculates per-staff and grand totals, TIN shown and stored on user profiles. See [Salary Request](08-salary-request.md).
+
+2026-10-26 — D05: direction approved by the user (project Google account owns templates and outputs; staff use personal Google accounts for sign-in; test account with synthetic data approved for early development). Scopes, token handling, and sharing rules remain subject to U01 evidence. D04: partly answered (personal-account sign-in; administrator assigns roles; Javier Neri is first administrator, project account is second, senior staff member is standby). See [architecture](02-architecture.md#identity-and-google-authorization).
 
 Current outcome: Inception artifacts refined; user review requested; Construction paused at the requested checkpoint.
