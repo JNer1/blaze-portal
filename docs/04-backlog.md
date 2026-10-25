@@ -1,6 +1,6 @@
 # Prioritized development units
 
-Status: Proposed order. No Construction unit is approved or started.
+Status: D02/D03 approved 2026-10-26. U02 implemented on branch `u02-foundation`, awaiting user review. Next proposed: local salary request form and preview (part of U07, no Google or persistence), with U01 on the synthetic test account. Other units remain proposals.
 
 Each unit below has a preliminary plan and acceptance criteria. Immediately before execution, present a concrete plan with affected files/components, fixtures, test commands, dependencies, and unresolved questions. Split units further if they cannot be reviewed independently. Acceptance means demonstrated behavior, not merely written code.
 

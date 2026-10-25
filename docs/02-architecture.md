@@ -8,6 +8,10 @@ The user has corrected Salary Request to generate one consolidated request lette
 
 Office identity is separate from officeholder identity and application role. Salary uses the OVRF request-letter template; retain its sample signature layout as a proposal for review. Other category templates require review. Proposed data additions include per-staff request rows/checklist states and a letter's externally issued LE value. Each distinct letter requires its own LE, even for the same request; numbering scope and same-letter revision/reissue rules remain unresolved. Never generate official LE numbers or substitute internal attempt IDs. Checklist completeness is advisory and separate from technical generation state. Preserve source references and unresolved applicability. These design proposals require review before schema approval; the correction does not authorize a migration. See [Salary Request](08-salary-request.md).
 
+## Implemented foundation — U02, 2026-10-26
+
+Single package managed with pnpm. `src/client` (React app), `src/worker` (Hono API under `/api`, entry `src/worker/index.ts`), `src/shared` (Zod schemas used by both). The Cloudflare Vite plugin runs the Worker in the local Workers runtime during `pnpm dev`; `wrangler.jsonc` serves the built frontend as static assets, routes `/api/*` to the Worker first, and falls back to `index.html` for client routes. TypeScript is pinned to 6.0 because typescript-eslint does not yet support 7.x; Vitest is pinned to 4.x to stay compatible with Cloudflare's Workers test pool if D1 tests later need it. No bindings, secrets, or deployment are configured.
+
 ## Components and boundaries
 
 1. **Browser:** React, Vite, TypeScript, Tailwind CSS, and shadcn/ui provide forms, review screens, and document history. Zod supports client feedback; the server independently validates every request. The browser holds no Google refresh token or application secret.

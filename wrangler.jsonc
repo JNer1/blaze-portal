@@ -1,0 +1,17 @@
+{
+  // Cloudflare Worker configuration. Used locally by `pnpm dev` (via the
+  // Cloudflare Vite plugin). Nothing here deploys automatically.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blaze-portal",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-10-19",
+  "assets": {
+    // Serve the React app for any non-API path so client-side routes work.
+    "not_found_handling": "single-page-application",
+    // Send /api/* to the Worker before checking static assets.
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
