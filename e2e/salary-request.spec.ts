@@ -101,6 +101,7 @@ test("lists only the enclosures that were selected", async ({ page }) => {
 
   await expect(preview.getByRole("listitem")).toHaveText(["Approved Line-Item Budget", "Sample Memo (synthetic)"]);
   await expect(preview).not.toContainText("Disbursement Voucher");
+  await expect(page.getByRole("checkbox", { name: "Disbursement Voucher" })).toHaveCount(0);
 });
 
 test("shows field errors and the server rejects the same input", async ({ page }) => {

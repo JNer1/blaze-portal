@@ -4,7 +4,6 @@ import { Field } from "@/client/components/Field";
 import { Input } from "@/client/components/ui/input";
 import {
   CHECKLIST_STATUS_LABELS,
-  SALARY_CHECKLIST_ITEMS,
   summarizeChecklist,
   type SalaryCheckResponse,
 } from "@/shared/salary-request";
@@ -12,10 +11,9 @@ import { emptyStaff, initialForm, rowTotal, toRequestInput, validateForm, type S
 import { LetterPreview } from "./LetterPreview";
 import { StaffRowCard } from "./StaffRowCard";
 
-const SUGGESTED_ENCLOSURES = [
-  "Approved Line-Item Budget",
-  ...SALARY_CHECKLIST_ITEMS.map((item) => item.label),
-];
+// Most salary letters have no enclosures. Supporting documents are submitted
+// with the checklist and are never listed in the letter (confirmed 2026-10-26).
+const SUGGESTED_ENCLOSURES = ["Approved Line-Item Budget"];
 
 type ServerCheck =
   | { state: "idle" }
@@ -161,9 +159,11 @@ export function SalaryRequestPage() {
         </section>
 
         <section className="space-y-3">
-          <h3 className="text-lg font-semibold">Enclosures</h3>
+          <h3 className="text-lg font-semibold">Enclosures (optional)</h3>
           <p className="text-muted-foreground text-sm">
-            Select only documents you are actually enclosing. This list is separate from the checklist above.
+            Most salary requests have none. Add only documents the letter itself refers to, such as the approved
+            Line-Item Budget when requesting several months in advance. Supporting documents go with the checklist
+            and are not listed here.
           </p>
           <div className="space-y-1.5">
             {[...new Set([...SUGGESTED_ENCLOSURES, ...form.enclosures])].map((item) => (
