@@ -54,6 +54,8 @@ Still to settle from U01 evidence: exact scopes (proposed `drive.file` only), ho
 
 **D12 — Financial and institutional rules (before deferred modules).** Obtain actual definitions, responsible stakeholders, approval authority, and accepted synthetic examples. The user supplied the general endorsement rule, organization screenshot, and expense workbook. OVRF is the confirmed expense destination; the latest salary exception requires only its request letter, with no additional cover letters. Checklists are advisory, not generation gates. Each distinct letter has its own LE. Same-letter revision/reissue rules, non-finance routing, other-category templates, and source-policy applicability remain unresolved. No additional accounting, procurement, approval, or retention rule is assumed.
 
+Gratuity/hazard-pay proration (decided by the user 2026-10-27, **Option B**): the approved annual amount is authoritative. Total for a period = annual amount × covered months ÷ 12, calculated exactly in centavos and rounded **once** to the nearest centavo (half-up). The monthly rate (annual ÷ 12, rounded to the centavo) is shown for information only and is never multiplied to get the total. Examples: ₱7,000 for 12 months = ₱7,000.00; for 8 months = ₱4,666.67; monthly rate shown as ₱583.33. This differs from the sample's ₱4,666.64 for 8 months. Applies when gratuity/hazard pay is built; salary is unaffected (whole monthly amounts × months). Confirming with the finance office is recommended but not blocking.
+
 ## Approval record
 
 For each reviewed decision, append its identifier, outcome (approved/revised/deferred/rejected), exact scope, conditions, approver, and date. Link any resulting architecture decision record and affected specification/backlog units. Unresolved decisions stay pending and block only the work that depends on them.
@@ -67,6 +69,10 @@ For each reviewed decision, append its identifier, outcome (approved/revised/def
 2026-10-26 — Salary calculations confirmed: whole-month payments, multi-month and advance requests allowed, app calculates per-staff and grand totals, TIN shown and stored on user profiles. See [Salary Request](08-salary-request.md).
 
 2026-10-26 — Salary follow-up: no grand total (per-staff totals only). Not all paid staff sign in; the administrative aide keeps staff records, so staff records are separate from user accounts.
+
+2026-10-27 — Salary letter revisions: LE header `UST: S037-00-[LE#]` with manual `A.Y.` line (prefix overridable); Project Leader signs, outside offices endorse; salary endorsed by RCNAS only (recipient OVRF); office heads chosen from a directory; project title, account name, LE prefix, and Project Leader become project settings, with editable project details planned for later. See [Salary Request](08-salary-request.md#letter-header-signatures-and-project-settings-confirmed-2026-10-27).
+
+2026-10-26 — Printed salary checklist: approved approach of a protected Google Sheets master copied and filled per payee (Name of Payee, Project Duration, Project Title only). Formatting and content must match the workbook; pixel-perfect output is not required. See [Salary Request](08-salary-request.md#printed-checklist-confirmed-2026-10-26).
 
 2026-10-26 — D05: direction approved by the user (project Google account owns templates and outputs; staff use personal Google accounts for sign-in; test account with synthetic data approved for early development). Scopes, token handling, and sharing rules remain subject to U01 evidence. D04: partly answered (personal-account sign-in; administrator assigns roles; Javier Neri is first administrator, project account is second, senior staff member is standby). See [architecture](02-architecture.md#identity-and-google-authorization).
 

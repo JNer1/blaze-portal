@@ -1,6 +1,6 @@
 # Prioritized development units
 
-Status: D02/D03 approved 2026-10-26. U02 implemented on branch `u02-foundation`, awaiting user review. Next proposed: local salary request form and preview (part of U07, no Google or persistence), with U01 on the synthetic test account. Other units remain proposals.
+Status: D02/D03 approved 2026-10-26. U02 implemented and merged. U07a (local salary request form, server check, and letter preview; no Google or persistence) implemented on branch `feat/salary-request-form`, awaiting review. Next candidates: U01 on the synthetic test account, then U03 persistence. Other units remain proposals.
 
 Each unit below has a preliminary plan and acceptance criteria. Immediately before execution, present a concrete plan with affected files/components, fixtures, test commands, dependencies, and unresolved questions. Split units further if they cannot be reviewed independently. Acceptance means demonstrated behavior, not merely written code.
 
@@ -8,13 +8,13 @@ Each unit below has a preliminary plan and acceptance criteria. Immediately befo
 
 **U00 — Confirm the pilot workflow (Inception continuation)**
 
-Plan: finish the corrected Salary Request walkthrough: one consolidated request letter addressed to OVRF, no additional cover letters, per-staff nonblocking checklists, one RCNAS-issued LE, reviewed template/enclosures, salary fields/calculations, output destination, and baseline effort. Each distinct letter has its own LE; same-letter revision/reissue rules remain open. See [Salary Request](08-salary-request.md). Use descriptions or synthetic examples; private material needs authorization before use as fixtures.
+Plan: finish the corrected Salary Request walkthrough: one consolidated request letter addressed to OVRF, no additional cover letters, per-staff nonblocking checklists, one RCNAS-issued LE, reviewed template, salary fields/calculations, output destination, and baseline effort. Each distinct letter has its own LE; same-letter revision/reissue rules remain open. See [Salary Request](08-salary-request.md). Use descriptions or synthetic examples; private material needs authorization before use as fixtures.
 
 Acceptance: user approves a worked synthetic input/output example and MVP boundary; unknown institutional rules remain explicitly unresolved. Dependencies: Inception feedback.
 
 **U01 — Validate Google integration and free-plan feasibility (first possible Construction unit)**
 
-Plan: using the approved synthetic-data test Google account (standing in for the project account) plus a separate personal test account for staff sign-in, run a bounded technical experiment for `drive.file` sufficiency, template access, OAuth publishing status, scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
+Plan: using the approved synthetic-data test Google account, covering both a Docs letter template and a Sheets checklist template, (standing in for the project account) plus a separate personal test account for staff sign-in, run a bounded technical experiment for `drive.file` sufficiency, template access, OAuth publishing status, scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
 
 Acceptance: one synthetic document generated without master modification; effective access and credential revocation checked; retry risks demonstrated; quota sources dated; ownership, required scopes, runtime feasibility, and blockers documented. No production deployment. Dependencies: U00, approved experiment plan and test-resource authorization.
 
@@ -25,6 +25,12 @@ Acceptance: one synthetic document generated without master modification; effect
 Plan: scaffold the agreed React/Hono stack, local configuration, validation, and Vitest/Playwright smoke checks; document local operation with synthetic data.
 
 Acceptance: fresh setup instructions work; frontend/API smoke checks pass; secrets are excluded from version control; local/test configuration is isolated. Dependencies: U01 and stack approval.
+
+**U05a — Manage project details and office directory (proposed)**
+
+Plan: move project settings (title, account name, LE prefix, Project Leader, project duration) and the office directory (heads, titles, salutations, acting heads, effective dates) from code into the database, with an administrator settings page.
+
+Acceptance: an administrator can change the Project Leader or an office head without a code change; previously prepared letters keep the names they were prepared with; changes are audited. Dependencies: U03–U05.
 
 **U03 — Establish persistence and audit primitives**
 
@@ -60,7 +66,7 @@ Acceptance: source guidance matches the reviewed synthetic example; per-staff no
 
 **U06b — Configure the salary request letter and LE entry**
 
-Plan: configure one OVRF-addressed salary request letter with reviewed recipient/signature details, enclosures, and one externally issued LE field. Never allocate official LE values. Distinct letters require distinct LE values; do not assume same-letter revision/reissue behavior.
+Plan: configure one OVRF-addressed salary request letter with reviewed recipient/signature details and one externally issued LE field. Never allocate official LE values. Distinct letters require distinct LE values; do not assume same-letter revision/reissue behavior.
 
 Acceptance: exactly one salary request-letter plan is produced; no extra cover letter is added; LE entry is associated with the letter; historical snapshots survive officeholder changes. Dependencies: U06a and reviewed salary template/LE behavior.
 
@@ -69,6 +75,16 @@ Acceptance: exactly one salary request-letter plan is produced; no extra cover l
 Plan: build a multi-staff salary draft, per-person periods and exact PHP amounts under agreed rules, one LE entry, and review of one request letter. Supporting checklists remain advisory. Use synthetic examples, not source PDF TINs or compensation.
 
 Acceptance: valid synthetic input round-trips; invalid data is rejected server-side; another project cannot read or edit the draft; review reflects all selected staff, differing coverage, LE values, reviewed amounts, and correct signature blocks; unsupported calculations are flagged without invented payroll rules. Dependencies: U06b and approved field contracts.
+
+**U07a — Local salary request form and preview (implemented 2026-10-26, awaiting review)**
+
+Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; `UST: S037-00-` LE header with manual A.Y.; Project Leader signs and RCNAS head endorses, picked from an office directory; project title, account name, and Project Leader from project settings; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
+
+**U08a — Generate the printed salary checklist (approach approved 2026-10-26)**
+
+Plan: register the workbook's Salary sheet as a protected Google Sheets master; for each payee, copy it and fill Name of Payee, Project Duration (project's overall duration, e.g. `January 2025 – December 2026`), and Project Title only. Leave all other cells as in the master.
+
+Acceptance: one checklist per payee in the request (3 staff → 1 letter + 3 checklists); output matches the master's formatting and content apart from the three fields (pixel-perfect match not required); the master is unchanged; no internal checklist status is written onto the sheet. Dependencies: U01 (including Sheets access under the chosen scope) and the template-registration approach in U06.
 
 **U08 — Generate and reconcile a Google document**
 

@@ -25,6 +25,8 @@ The PDF includes distinct salary, gratuity/hazard-pay, and honorarium letters ad
 
 The salary table contains name, designation, TIN, monthly amount, duration/coverage, and total amount. Coverage can differ between staff within the same request. The sample mentions the approved Line-Item Budget as an enclosure even though that item is not one of the four Salary worksheet rows. Treat enclosure text and checklist guidance as separate concepts; confirm what is actually enclosed before asserting it in a letter.
 
+Confirmed 2026-10-26: salary letters do not always have enclosures; the Line-Item Budget in the sample was a special case for a multi-month request. Staff call every attachment a supporting document, and supporting documents are submitted with the letter and its checklist without being listed in the letter. User decision 2026-10-26: **no separate enclosures section for now.** The form and generated letter have no enclosure list; a one-off reference such as the Line-Item Budget can be added by editing the generated document. Revisit only if staff ask for it.
+
 Some sample LE headers appear incomplete; do not treat them as valid issued identifiers or infer a numbering scheme. Names, TINs, salaries, dates, and project references in the example are source material, not defaults, fixtures, or proof of current settings. No authorization to reuse the PDF as an automated test fixture is inferred.
 
 ## Advisory salary checklist
@@ -42,9 +44,38 @@ Proposed summary: show counts by status and identify each person's unreviewed/mi
 
 Missing supporting items are different from an incomplete generation attempt: the salary request letter may be generated while supporting documents remain missing. Such a request should show **letter generated** and its separate checklist summary; it must not be labeled fully approved or ready for submission solely because generation succeeded.
 
+## Letter header, signatures, and project settings (confirmed 2026-10-27)
+
+- **LE header:** `UST: S037-00-[LE#]`, with `A.Y. [yyyy]-[yyyy]` on the line below. `S037-00-` is fixed for BlAzE but can be overridden per letter. The LE# is entered exactly as issued by RCNAS (for example `LE1356`). The academic year is entered manually in two fields, **From** and **To** (To fills in as the following year and stays editable); the years must be consecutive and the letter prints `A.Y. 2025–2026` with an en dash.
+- **Signature levels:** the Project Leader signs every letter ("Respectfully,"). Signatories outside the research group (RCNAS, Vice-Rectors, Rector) appear under **"Endorsed by:"**. For salary requests, **only the RCNAS head endorses**, because the letter goes only as far as OVRF. The recipient is the OVRF head.
+- **Office directory:** office heads are picked from a directory (name, title, salutation; acting heads allowed); fields stay editable for one-off overrides, and each letter keeps a copy of the names used. Directory confirmed current on 2026-10-27: OVRF, RCNAS, OVRRI, and the Rector's office. Only OVRF (recipient) and RCNAS (endorser) appear on salary letters.
+- **Project settings:** the project title (*Staphylococcus aureus* in italics), account name (formerly "charge reference"), LE prefix, and Project Leader come from project settings, not the form. BlAzE is the only project for now; the Project Leader can change, so these must become editable project details (planned with U03–U05). The account name is `FCDU-RCNAS-DOST-NRCP-EVALUATION OF BACTERIOLYTIC ACTIVITY` (the "EVALUTATION" spelling in the sample was a typo, corrected 2026-10-27). The Project Leader prints as `Project Leader – BlAzE Project`.
+
+Letter wording in the preview follows the sample letter's voice ("Greetings!", "In line with the project, <full project title> (BlAzE Project), …" — full title rather than the account name, per user 2026-10-27 — "This will be charged under the requested FCDU account …"), pending the official Google Docs template.
+
+## Printed checklist (confirmed 2026-10-26)
+
+The salary checklist is printed and submitted alongside the request letter. It must match the **Salary** sheet of the supplied workbook in formatting and content; a pixel-perfect copy is not required ("PROJECT DISBURSEMENTS" / "CHECKLIST OF DOCUMENTARY REQUIREMENTS FOR GRANTS-IN-AID PROGRAM", A4 portrait).
+
+Only three fields are filled in by the app:
+
+| Workbook cell | Field | Source |
+|---|---|---|
+| B4 (merged B4:H6) | Name of Payee | Staff member's name |
+| I4 (merged I4:M6) | Project Duration | The project's overall duration, formatted like `January 2025 – December 2026`. Shared by every payee under the same project. |
+| B7 (merged B7:Q7) | PROJECT TITLE | Request's project title |
+
+**One checklist per payee:** a request for 3 staff produces 1 request letter and 3 checklists.
+
+Everything else prints as in the workbook and is left blank for manual completion: CONTROL NO., the agency check columns (Implementing Agency, Monitoring Agency, SPD/Project Team, Accounting of the Source Agency), signatures, dates, and remarks. The app's internal checklist statuses are tracking aids and are **not** printed onto the sheet.
+
+Approach (approved by the user 2026-10-26): keep the Salary sheet as a protected **Google Sheets master template** in the project Google account. For each payee the app copies it, writes the three cells, and the copy is printed or exported to PDF alongside the letter. This preserves the workbook's layout more faithfully than rebuilding it in HTML, and fits the existing Google Docs generation design (D05, U01, U08). The xlsx → Google Sheets conversion is checked visually once for matching formatting and content; any fixes are made to the master, not by the app.
+
+Project duration belongs to the project, not to each request. Until project records exist (U03), the request form will take it as a start/end month input when U08a is built; afterwards it comes from the project's settings.
+
 ## Proposed inputs and review
 
-- Shared request: project/display name, funding/charge reference, request date, purpose/wording, actual enclosures, selected staff, and officeholder/template versions.
+- Shared request: project/display name, funding/charge reference, request date, purpose/wording, selected staff, and officeholder/template versions.
 - Per staff: name, designation, required identifier fields, coverage dates or month/year range, monthly PHP amount, payable duration, requested total, and advisory checklist states/notes.
 - Per letter: destination, LE number as issued, reviewed recipient/title, body/template, and prescribed signature blocks.
 
@@ -64,7 +95,7 @@ Confirmed 2026-10-26: one salary payment covers one whole month. A request may c
 - Money is stored and calculated as integer centavos; amounts display as PHP with two decimals. No floating-point arithmetic.
 - Partial months, prorating, deductions, and benefits are out of scope. The form accepts only whole months. This is salary-request preparation, not payroll processing or an accounting ledger. No gratuity, hazard-pay, or honorarium calculations are included in this slice.
 
-Review the request letter, including all staff rows, individualized periods, amounts, actual enclosure statements, names/titles, LE placement, and signature blocks. Retain the sample's Dr. Papa and Dr. Tongol blocks as the proposed request-letter layout, subject to template review; the correction changes the number/type of letters, not an explicitly supplied replacement signature layout. Changes to request data must identify previously generated output as based on an earlier revision; regenerated documents preserve prior provenance.
+Review the request letter, including all staff rows, individualized periods, amounts, names/titles, LE placement, and signature blocks. Retain the sample's Dr. Papa and Dr. Tongol blocks as the proposed request-letter layout, subject to template review; the correction changes the number/type of letters, not an explicitly supplied replacement signature layout. Changes to request data must identify previously generated output as based on an earlier revision; regenerated documents preserve prior provenance.
 
 ## LE handling — one issued number per individual letter
 
@@ -82,7 +113,7 @@ Review the request letter, including all staff rows, individualized periods, amo
 4. Different staff coverage/duration and exact PHP amounts are rendered correctly under the agreed calculation rules. Unsupported prorating is visibly unresolved.
 5. Unreviewed, missing, and not-applicable checklist items remain visible per staff and do not prevent generation. No supporting document is fabricated or required to be uploaded.
 6. The finalized request letter shows its single entered, RCNAS-issued LE value at the top. Saving an incomplete draft does not allocate a number. Distinct letters must not share an LE number, even within the same request.
-7. Enclosure wording reflects user-reviewed enclosures; an unchecked checklist does not silently produce a false statement that all requirements are attached.
+7. The letter contains no enclosure list (decision 2026-10-26) and makes no statement that supporting documents are attached or complete.
 8. The output retains template/input/officeholder/LE snapshots. Failed or uncertain generation remains distinguishable from success, and recovery does not silently create a duplicate letter or assign a new LE.
 9. Tests use synthetic people, identifiers, amounts, and project references. Existing authentication, project-access, audit, and template-protection criteria continue to apply.
 

@@ -4,7 +4,7 @@ test("home page loads and reaches the API", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "BlAzE Portal" })).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText("API is running");
+  await expect(page.getByTestId("api-status")).toHaveText("API is running");
 });
 
 test("unknown pages fall back to the app, unknown API routes return 404", async ({ page, request }) => {
