@@ -1,9 +1,9 @@
 import { formatCentavos } from "@/shared/money";
 import { formatCoverage, formatIsoDate, isYearMonth } from "@/shared/months";
 import { formatTin, normalizeTin } from "@/shared/tin";
+import { OFFICES } from "@/shared/offices";
+import { getProject } from "@/shared/projects";
 import { rowTotal, type SalaryForm } from "./form-state";
-
-const OVRF = "Office of the Vice-Rector for Finance";
 
 function orPlaceholder(value: string, placeholder: string) {
   const text = value.trim();
@@ -19,7 +19,9 @@ function safeDate(value: string) {
 }
 
 export function LetterPreview({ form }: { form: SalaryForm }) {
+  const project = getProject(form.projectId);
   const le = form.leNumber.trim();
+  const leader = project.projectLeader;
 
   return (
     <article
@@ -35,23 +37,27 @@ export function LetterPreview({ form }: { form: SalaryForm }) {
         </div>
       )}
 
-      <p className="font-sans font-semibold" data-testid="le-header">
-        {le ? `LE No. ${le}` : "DRAFT – NO LE"}
-      </p>
+      <div className="font-semibold" data-testid="le-header">
+        <p>
+          UST: {form.lePrefix.trim()}
+          {le || <span className="text-neutral-400">[LE number]</span>}
+        </p>
+        <p>A.Y. {orPlaceholder(form.academicYear, "yyyy-yyyy")}</p>
+      </div>
       <p className="mt-4">{safeDate(form.requestDate) ?? orPlaceholder("", "Date")}</p>
 
       <div className="mt-4">
         <p className="font-semibold">{orPlaceholder(form.recipient.name, "Recipient name")}</p>
         <p>{orPlaceholder(form.recipient.title, "Recipient title")}</p>
-        <p>{OVRF}</p>
+        <p>{OFFICES.ovrf.name}</p>
       </div>
 
-      <p className="mt-4">Dear {orPlaceholder(form.recipient.name, "Recipient name")}:</p>
+      <p className="mt-4">Dear {orPlaceholder(form.recipient.salutation, "Salutation")}:</p>
+      <p className="mt-3">Greetings!</p>
 
       <p className="mt-3 text-justify">
-        We respectfully request the release of salaries for the following research staff of the project{" "}
-        <strong>{orPlaceholder(form.projectTitle, "Project title")}</strong>, to be charged against{" "}
-        {orPlaceholder(form.chargeReference, "Funding/charge reference")}, for the periods indicated below:
+        In line with the {project.shortName}: {project.accountName} we would like to request the following amounts
+        in check for the salaries of the following research staff of the project:
       </p>
 
       <table className="mt-3 w-full border-collapse text-[10px]">
@@ -92,16 +98,22 @@ export function LetterPreview({ form }: { form: SalaryForm }) {
         </tbody>
       </table>
 
-      <p className="mt-3">Thank you very much.</p>
-      <p className="mt-3">Respectfully yours,</p>
+      <p className="mt-3 text-justify">
+        This will be charged under the requested FCDU account for the {project.shortName}: {project.accountName}.
+      </p>
+      <p className="mt-3">Thank you and hoping for your kind consideration regarding this matter.</p>
 
-      <div className="mt-8 grid grid-cols-2 gap-6">
-        {form.signatories.map((s, i) => (
-          <div key={i}>
-            <p className="font-semibold uppercase">{orPlaceholder(s.name, `Signatory ${i + 1} name`)}</p>
-            <p>{orPlaceholder(s.title, `Signatory ${i + 1} title`)}</p>
-          </div>
-        ))}
+      <div className="mt-3 grid grid-cols-2 gap-6">
+        <div data-testid="signed-by">
+          <p>Respectfully,</p>
+          <p className="mt-8 font-semibold">{leader.name}</p>
+          <p>{leader.title}</p>
+        </div>
+        <div data-testid="endorsed-by">
+          <p>Endorsed by:</p>
+          <p className="mt-8 font-semibold">{orPlaceholder(form.endorser.name, "Endorser name")}</p>
+          <p>{orPlaceholder(form.endorser.title, "Endorser title")}</p>
+        </div>
       </div>
     </article>
   );

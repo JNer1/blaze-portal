@@ -44,6 +44,15 @@ Proposed summary: show counts by status and identify each person's unreviewed/mi
 
 Missing supporting items are different from an incomplete generation attempt: the salary request letter may be generated while supporting documents remain missing. Such a request should show **letter generated** and its separate checklist summary; it must not be labeled fully approved or ready for submission solely because generation succeeded.
 
+## Letter header, signatures, and project settings (confirmed 2026-10-27)
+
+- **LE header:** `UST: S037-00-[LE#]`, with `A.Y. [yyyy]-[yyyy]` on the line below. `S037-00-` is fixed for BlAzE but can be overridden per letter. The LE# is entered exactly as issued by RCNAS (for example `LE1356`). The academic year is entered manually and must be two consecutive years.
+- **Signature levels:** the Project Leader signs every letter ("Respectfully,"). Signatories outside the research group (RCNAS, Vice-Rectors, Rector) appear under **"Endorsed by:"**. For salary requests, **only the RCNAS head endorses**, because the letter goes only as far as OVRF. The recipient is the OVRF head.
+- **Office directory:** office heads are picked from a directory (name, title, salutation; acting heads allowed); fields stay editable for one-off overrides, and each letter keeps a copy of the names used. The OVRF and RCNAS entries are taken from the supplied sample letter (January 2025) and **need confirmation that they are current**. OVRRI and the Rector's office will be added when their current heads are supplied.
+- **Project settings:** the project title (*Staphylococcus aureus* in italics), account name (formerly "charge reference"), LE prefix, and Project Leader come from project settings, not the form. BlAzE is the only project for now; the Project Leader can change, so these must become editable project details (planned with U03–U05). The account name is kept exactly as registered, including the spelling "EVALUTATION".
+
+Letter wording in the preview follows the sample letter's voice ("Greetings!", "In line with the BlAzE Project: <account name> …", "This will be charged under the requested FCDU account …"), pending the official Google Docs template.
+
 ## Printed checklist (confirmed 2026-10-26)
 
 The salary checklist is printed and submitted alongside the request letter. It must match the **Salary** sheet of the supplied workbook in formatting and content; a pixel-perfect copy is not required ("PROJECT DISBURSEMENTS" / "CHECKLIST OF DOCUMENTARY REQUIREMENTS FOR GRANTS-IN-AID PROGRAM", A4 portrait).

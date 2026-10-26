@@ -19,6 +19,21 @@ describe("salaryRequestSchema", () => {
     expect(parsed.staff.map((s) => s.tin)).toEqual(["000111222", "000333444000"]);
   });
 
+  it.each(["", "2025-2026"])("accepts academic year %j", (academicYear) => {
+    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([]);
+  });
+
+  it.each(["2025-2027", "2025", "25-26", "2025–2026"])("rejects academic year %j", (academicYear) => {
+    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([
+      { path: "academicYear", message: "Use consecutive years like 2025-2026." },
+    ]);
+  });
+
+  it("rejects unknown projects and a blank LE prefix", () => {
+    expect(errorsFor({ ...syntheticSalaryRequest(), projectId: "other" }).map((e) => e.path)).toEqual(["projectId"]);
+    expect(errorsFor({ ...syntheticSalaryRequest(), lePrefix: " " }).map((e) => e.path)).toEqual(["lePrefix"]);
+  });
+
   it("allows a blank LE number (draft)", () => {
     expect(errorsFor({ ...syntheticSalaryRequest(), leNumber: "" })).toEqual([]);
   });

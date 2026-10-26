@@ -1,4 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { OFFICES } from "../src/shared/offices";
+import { PROJECTS } from "../src/shared/projects";
 
 // Synthetic data only.
 async function fillStaff(
@@ -14,9 +16,6 @@ async function fillStaff(
 }
 
 async function fillValidRequest(page: Page) {
-  await page.getByLabel("Project title").fill("Sample Research Project (synthetic)");
-  await page.getByLabel("Funding/charge reference").fill("Sample Fund Code 0000");
-
   await fillStaff(page.getByTestId("staff-row").nth(0), {
     name: "Alex Sample",
     designation: "Project Assistant I",
@@ -66,12 +65,56 @@ test("calculates per-staff totals and shows them in the preview without a grand 
   await expect(page.getByText("Server check passed. Totals match.")).toBeVisible();
 });
 
-test("shows DRAFT without an LE and the exact LE once entered", async ({ page }) => {
-  const header = page.getByRole("article", { name: "Letter preview" }).getByTestId("le-header");
-  await expect(header).toHaveText("DRAFT – NO LE");
+test("shows DRAFT without an LE, then the prefixed LE and academic year", async ({ page }) => {
+  const preview = page.getByRole("article", { name: "Letter preview" });
+  const header = preview.getByTestId("le-header");
+  await expect(header).toContainText("UST: S037-00-[LE number]");
+  await expect(preview).toContainText("DRAFT – NO LE");
 
-  await page.getByLabel("LE number").fill("TEST-LE 2026/0001-a");
-  await expect(header).toHaveText("LE No. TEST-LE 2026/0001-a");
+  await page.getByLabel("LE number").fill("LE0001");
+  await page.getByLabel("Academic year").fill("2026-2027");
+  await expect(header).toHaveText("UST: S037-00-LE0001A.Y. 2026-2027");
+  await expect(preview).not.toContainText("DRAFT – NO LE");
+
+  await page.getByLabel("LE prefix").fill("S999-01-");
+  await expect(header).toContainText("UST: S999-01-LE0001");
+});
+
+test("rejects an academic year that is not two consecutive years", async ({ page }) => {
+  await page.getByLabel("Academic year").fill("2026-2028");
+  await expect(page.getByText("Use consecutive years like 2025-2026.")).toBeVisible();
+});
+
+test("project details come from settings, not the form", async ({ page }) => {
+  const project = PROJECTS.blaze;
+  await expect(page.getByLabel("Project title")).toHaveCount(0);
+  await expect(page.getByLabel(/charge reference|account name/i)).toHaveCount(0);
+
+  const info = page.getByRole("region", { name: "Project" });
+  await expect(info).toContainText(project.title);
+  await expect(info.locator("em")).toHaveText("Staphylococcus aureus");
+  await expect(page.getByRole("article", { name: "Letter preview" })).toContainText(project.accountName);
+});
+
+test("signed by the project leader and endorsed by the RCNAS head", async ({ page }) => {
+  const preview = page.getByRole("article", { name: "Letter preview" });
+  const leader = PROJECTS.blaze.projectLeader;
+  const rcnas = OFFICES.rcnas.heads[0];
+  const ovrf = OFFICES.ovrf.heads[0];
+
+  await expect(preview.getByTestId("signed-by")).toHaveText(`Respectfully,${leader.name}${leader.title}`);
+  await expect(preview.getByTestId("endorsed-by")).toHaveText(`Endorsed by:${rcnas.name}${rcnas.title}`);
+  await expect(preview).toContainText(ovrf.name);
+  await expect(preview).toContainText(`Dear ${ovrf.salutation}:`);
+
+  // One-off override switches the picker to "Other" and prints the typed name.
+  await page.getByLabel("Endorsed by name").fill("Sample Acting Director (synthetic)");
+  await expect(page.getByLabel("RCNAS head")).toHaveValue("other");
+  await expect(preview.getByTestId("endorsed-by")).toContainText("Sample Acting Director (synthetic)");
+
+  // Choosing the directory entry again restores the name and title.
+  await page.getByLabel("RCNAS head").selectOption({ index: 0 });
+  await expect(preview.getByTestId("endorsed-by")).toContainText(rcnas.name);
 });
 
 test("missing or unreviewed checklist items never block the preview or the check", async ({ page }) => {
@@ -118,6 +161,5 @@ test("shows field errors and the server rejects the same input", async ({ page }
 test("a blank form reports required fields after Check request", async ({ page }) => {
   await page.getByRole("button", { name: "Check request" }).click();
 
-  await expect(page.getByText("Enter the project title.").first()).toBeVisible();
   await expect(page.getByText("Enter the staff member's name.").first()).toBeVisible();
 });

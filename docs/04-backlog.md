@@ -26,6 +26,12 @@ Plan: scaffold the agreed React/Hono stack, local configuration, validation, and
 
 Acceptance: fresh setup instructions work; frontend/API smoke checks pass; secrets are excluded from version control; local/test configuration is isolated. Dependencies: U01 and stack approval.
 
+**U05a — Manage project details and office directory (proposed)**
+
+Plan: move project settings (title, account name, LE prefix, Project Leader, project duration) and the office directory (heads, titles, salutations, acting heads, effective dates) from code into the database, with an administrator settings page.
+
+Acceptance: an administrator can change the Project Leader or an office head without a code change; previously prepared letters keep the names they were prepared with; changes are audited. Dependencies: U03–U05.
+
 **U03 — Establish persistence and audit primitives**
 
 Plan: define only the pilot schema, constraints, migration workflow, and atomic audit-write pattern validated for D1.
@@ -72,7 +78,7 @@ Acceptance: valid synthetic input round-trips; invalid data is rejected server-s
 
 **U07a — Local salary request form and preview (implemented 2026-10-26, awaiting review)**
 
-Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
+Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; `UST: S037-00-` LE header with manual A.Y.; Project Leader signs and RCNAS head endorses, picked from an office directory; project title, account name, and Project Leader from project settings; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
 
 **U08a — Generate the printed salary checklist (approach approved 2026-10-26)**
 

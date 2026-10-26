@@ -8,6 +8,10 @@ import {
 } from "@/shared/salary-request";
 import { emptyStaff, initialForm, rowTotal, toRequestInput, validateForm, type SalaryForm, type StaffForm } from "./form-state";
 import { LetterPreview } from "./LetterPreview";
+import { OfficialPicker } from "./OfficialPicker";
+import { ProjectTitle } from "./ProjectTitle";
+import { OFFICES } from "@/shared/offices";
+import { getProject } from "@/shared/projects";
 import { StaffRowCard } from "./StaffRowCard";
 
 type ServerCheck =
@@ -23,6 +27,7 @@ export function SalaryRequestPage() {
   const [showAllErrors, setShowAllErrors] = useState(false);
   const [serverCheck, setServerCheck] = useState<ServerCheck>({ state: "idle" });
 
+  const project = getProject(form.projectId);
   const errors = useMemo(() => validateForm(form), [form]);
   const checklist = useMemo(() => summarizeChecklist(form.staff), [form.staff]);
 
@@ -66,14 +71,42 @@ export function SalaryRequestPage() {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div className="space-y-8">
+        <section aria-label="Project" className="bg-muted space-y-1 rounded-lg p-4 text-sm">
+          <h3 className="font-semibold">{project.shortName}</h3>
+          <p>
+            <ProjectTitle project={project} />
+          </p>
+          <p className="text-muted-foreground">Account name: {project.accountName}</p>
+          <p className="text-muted-foreground">
+            Signed by: {project.projectLeader.name}, {project.projectLeader.title}
+          </p>
+        </section>
+
         <section className="space-y-3">
           <h3 className="text-lg font-semibold">Letter details</h3>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-[auto_1fr]">
+            <Field
+              label="LE prefix"
+              value={form.lePrefix}
+              onChange={(v) => update({ lePrefix: v })}
+              error={errorFor("lePrefix", form.lePrefix || " ")}
+              hint="Usually unchanged."
+              className="sm:w-36"
+            />
             <Field
               label="LE number"
               value={form.leNumber}
               onChange={(v) => update({ leNumber: v })}
-              hint="Enter exactly as issued by RCNAS. Leave blank while waiting; the letter stays a draft."
+              placeholder="LE1356"
+              hint="Exactly as issued by RCNAS. Leave blank while waiting; the letter stays a draft."
+            />
+            <Field
+              label="Academic year"
+              value={form.academicYear}
+              onChange={(v) => update({ academicYear: v })}
+              error={errorFor("academicYear", form.academicYear)}
+              placeholder="2025-2026"
+              className="sm:w-36"
             />
             <Field
               label="Request date"
@@ -82,40 +115,24 @@ export function SalaryRequestPage() {
               onChange={(v) => update({ requestDate: v })}
               error={errorFor("requestDate", form.requestDate)}
             />
-            <Field
-              label="Project title"
-              value={form.projectTitle}
-              onChange={(v) => update({ projectTitle: v })}
-              error={errorFor("projectTitle", form.projectTitle)}
-              className="sm:col-span-2"
-            />
-            <Field
-              label="Funding/charge reference"
-              value={form.chargeReference}
-              onChange={(v) => update({ chargeReference: v })}
-              error={errorFor("chargeReference", form.chargeReference)}
-              className="sm:col-span-2"
-            />
           </div>
         </section>
 
         <section className="space-y-3">
-          <h3 className="text-lg font-semibold">Recipient (OVRF) and signatories</h3>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Recipient name" value={form.recipient.name} onChange={(v) => update({ recipient: { ...form.recipient, name: v } })} />
-            <Field label="Recipient title" value={form.recipient.title} onChange={(v) => update({ recipient: { ...form.recipient, title: v } })} />
-            {form.signatories.map((s, i) => {
-              const set = (patch: Partial<typeof s>) => {
-                const next = [...form.signatories] as SalaryForm["signatories"];
-                next[i] = { ...s, ...patch };
-                update({ signatories: next });
-              };
-              return [
-                <Field key={`n${i}`} label={`Signatory ${i + 1} name`} value={s.name} onChange={(v) => set({ name: v })} />,
-                <Field key={`t${i}`} label={`Signatory ${i + 1} title`} value={s.title} onChange={(v) => set({ title: v })} />,
-              ];
-            })}
-          </div>
+          <h3 className="text-lg font-semibold">Recipient and endorsement</h3>
+          <OfficialPicker
+            label="Recipient"
+            office={OFFICES.ovrf}
+            value={form.recipient}
+            onChange={(recipient) => update({ recipient })}
+            withSalutation
+          />
+          <OfficialPicker
+            label="Endorsed by"
+            office={OFFICES.rcnas}
+            value={form.endorser}
+            onChange={(endorser) => update({ endorser })}
+          />
         </section>
 
         <section className="space-y-3">

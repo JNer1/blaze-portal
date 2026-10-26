@@ -3,15 +3,13 @@ import { emptyChecklist, type SalaryRequestInput } from "./salary-request";
 // Synthetic data only. Not based on real staff, TINs, or salaries.
 export function syntheticSalaryRequest(): SalaryRequestInput {
   return {
+    projectId: "blaze",
+    lePrefix: "S037-00-",
     leNumber: "",
+    academicYear: "2026-2027",
     requestDate: "2026-10-26",
-    projectTitle: "Sample Research Project (synthetic)",
-    chargeReference: "Sample Fund Code 0000",
-    recipient: { name: "Sample Recipient", title: "Vice-Rector for Finance" },
-    signatories: [
-      { name: "Sample Signatory One", title: "Project Leader" },
-      { name: "Sample Signatory Two", title: "Program Leader" },
-    ],
+    recipient: { name: "SAMPLE RECIPIENT", title: "Vice-Rector for Finance", salutation: "Sample Recipient" },
+    endorser: { name: "Sample Endorser", title: "Director – RCNAS" },
     staff: [
       {
         name: "Alex Sample",

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { isCentavos, multiplyCentavos, toCentavos, type Centavos } from "./money";
 import { countMonthsInclusive, isYearMonth, type YearMonth } from "./months";
+import { PROJECT_IDS } from "./projects";
 import { normalizeTin } from "./tin";
 
 // Salary worksheet items from the supplied checklist workbook. Advisory only:
@@ -100,19 +101,34 @@ function hasValidCoverage(value: unknown): boolean {
   );
 }
 
+// "2025-2026": two consecutive years. Entered manually (confirmed 2026-10-27).
+export function isAcademicYear(value: string): boolean {
+  const match = /^(\d{4})-(\d{4})$/.exec(value);
+  return match !== null && Number(match[2]) === Number(match[1]) + 1;
+}
+
+const letterPersonSchema = z.object({
+  name: optionalText(200),
+  title: optionalText(200),
+});
+
 export const salaryRequestSchema = z.object({
-  // Entered exactly as issued by RCNAS. Blank means the letter is still a draft.
-  leNumber: optionalText(100),
+  // Project settings (title, account name, project leader) come from the
+  // project, not the request.
+  projectId: z.enum(PROJECT_IDS),
+  // Printed as "UST: <prefix><LE number>". The prefix defaults from the
+  // project and can be overridden. The LE number is entered exactly as issued
+  // by RCNAS; blank means the letter is still a draft.
+  lePrefix: requiredText(50, "Enter the LE prefix."),
+  leNumber: optionalText(50),
+  academicYear: z
+    .string()
+    .trim()
+    .refine((v) => v === "" || isAcademicYear(v), "Use consecutive years like 2025-2026."),
   requestDate: z.iso.date("Enter the request date."),
-  projectTitle: requiredText(300, "Enter the project title."),
-  chargeReference: requiredText(300, "Enter the funding/charge reference."),
-  recipient: z.object({
-    name: optionalText(200),
-    title: optionalText(200),
-  }),
-  signatories: z
-    .array(z.object({ name: optionalText(200), title: optionalText(200) }))
-    .length(2),
+  // Copies of the names used, so later directory changes don't alter this letter.
+  recipient: letterPersonSchema.extend({ salutation: optionalText(200) }),
+  endorser: letterPersonSchema,
   staff: z.array(salaryStaffSchema).min(1, "Add at least one staff member.").max(50),
 });
 

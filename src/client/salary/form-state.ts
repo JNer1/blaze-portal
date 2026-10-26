@@ -1,5 +1,7 @@
 import { parsePesoAmount, type Centavos } from "@/shared/money";
 import { isYearMonth } from "@/shared/months";
+import { OFFICES, type OfficeHead } from "@/shared/offices";
+import { PROJECTS, type ProjectId } from "@/shared/projects";
 import {
   calculateStaffTotal,
   emptyChecklist,
@@ -24,13 +26,16 @@ export type StaffForm = {
   checklist: Record<ChecklistItemId, { status: ChecklistStatus; note: string }>;
 };
 
+export type LetterPerson = { name: string; title: string };
+
 export type SalaryForm = {
+  projectId: ProjectId;
+  lePrefix: string;
   leNumber: string;
+  academicYear: string;
   requestDate: string;
-  projectTitle: string;
-  chargeReference: string;
-  recipient: { name: string; title: string };
-  signatories: [{ name: string; title: string }, { name: string; title: string }];
+  recipient: LetterPerson & { salutation: string };
+  endorser: LetterPerson;
   staff: StaffForm[];
 };
 
@@ -55,29 +60,35 @@ export function todayIso(now = new Date()): string {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
-export function initialForm(): SalaryForm {
+export function personFromHead(head: OfficeHead | undefined): LetterPerson & { salutation: string } {
+  return { name: head?.name ?? "", title: head?.title ?? "", salutation: head?.salutation ?? "" };
+}
+
+// Salary letters go to the OVRF head and are endorsed by the RCNAS head only
+// (confirmed 2026-10-27). Both start as the directory's first listed head.
+export function initialForm(projectId: ProjectId = "blaze"): SalaryForm {
+  const rcnasHead = OFFICES.rcnas.heads[0];
   return {
+    projectId,
+    lePrefix: PROJECTS[projectId].lePrefix,
     leNumber: "",
+    academicYear: "",
     requestDate: todayIso(),
-    projectTitle: "",
-    chargeReference: "",
-    recipient: { name: "", title: "" },
-    signatories: [
-      { name: "", title: "" },
-      { name: "", title: "" },
-    ],
+    recipient: personFromHead(OFFICES.ovrf.heads[0]),
+    endorser: { name: rcnasHead.name, title: rcnasHead.title },
     staff: [emptyStaff()],
   };
 }
 
 export function toRequestInput(form: SalaryForm): SalaryRequestInput {
   return {
+    projectId: form.projectId,
+    lePrefix: form.lePrefix,
     leNumber: form.leNumber,
+    academicYear: form.academicYear,
     requestDate: form.requestDate,
-    projectTitle: form.projectTitle,
-    chargeReference: form.chargeReference,
     recipient: form.recipient,
-    signatories: form.signatories,
+    endorser: form.endorser,
     staff: form.staff.map((row) => {
       const amount = parsePesoAmount(row.monthly);
       return {

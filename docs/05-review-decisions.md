@@ -68,6 +68,8 @@ For each reviewed decision, append its identifier, outcome (approved/revised/def
 
 2026-10-26 — Salary follow-up: no grand total (per-staff totals only). Not all paid staff sign in; the administrative aide keeps staff records, so staff records are separate from user accounts.
 
+2026-10-27 — Salary letter revisions: LE header `UST: S037-00-[LE#]` with manual `A.Y.` line (prefix overridable); Project Leader signs, outside offices endorse; salary endorsed by RCNAS only (recipient OVRF); office heads chosen from a directory; project title, account name, LE prefix, and Project Leader become project settings, with editable project details planned for later. See [Salary Request](08-salary-request.md#letter-header-signatures-and-project-settings-confirmed-2026-10-27).
+
 2026-10-26 — Printed salary checklist: approved approach of a protected Google Sheets master copied and filled per payee (Name of Payee, Project Duration, Project Title only). Formatting and content must match the workbook; pixel-perfect output is not required. See [Salary Request](08-salary-request.md#printed-checklist-confirmed-2026-10-26).
 
 2026-10-26 — D05: direction approved by the user (project Google account owns templates and outputs; staff use personal Google accounts for sign-in; test account with synthetic data approved for early development). Scopes, token handling, and sharing rules remain subject to U01 evidence. D04: partly answered (personal-account sign-in; administrator assigns roles; Javier Neri is first administrator, project account is second, senior staff member is standby). See [architecture](02-architecture.md#identity-and-google-authorization).

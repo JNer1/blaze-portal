@@ -5,8 +5,6 @@ import { salaryRequestSchema } from "@/shared/salary-request";
 function filledForm(): SalaryForm {
   const form = initialForm();
   form.requestDate = "2026-10-26";
-  form.projectTitle = "Sample Research Project (synthetic)";
-  form.chargeReference = "Sample Fund Code 0000";
   form.staff = [
     { ...emptyStaff(), name: "Alex Sample", designation: "Project Assistant I", tin: "000-111-222", monthly: "25,000.00", coverageStart: "2025-05", coverageEnd: "2026-02" },
     { ...emptyStaff(), name: "Bea Example", designation: "Science Research Specialist I", tin: "000333444000", monthly: "18,333.33", coverageStart: "2026-01", coverageEnd: "2026-07" },
@@ -39,12 +37,20 @@ describe("salary form", () => {
     const form = filledForm();
     form.staff[1]!.tin = "12";
     form.staff[1]!.coverageEnd = "2025-12";
-    form.projectTitle = "";
+    form.academicYear = "2025-2027";
     expect(Object.keys(validateForm(form)).sort()).toEqual([
-      "projectTitle",
+      "academicYear",
       "staff.1.coverageEnd",
       "staff.1.tin",
     ]);
+  });
+
+  it("starts with project settings and directory heads filled in", () => {
+    const form = initialForm();
+    expect(form.lePrefix).toBe("S037-00-");
+    expect(form.recipient.name).not.toBe("");
+    expect(form.recipient.salutation).not.toBe("");
+    expect(form.endorser.name).not.toBe("");
   });
 
   it("formats today's local date", () => {
