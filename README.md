@@ -36,6 +36,10 @@ pnpm only runs install scripts for packages listed under `allowBuilds` in `pnpm-
 | `pnpm build` | Production build into `dist/` (does not deploy) |
 | `pnpm cf-typegen` | Regenerates Worker types after editing `wrangler.jsonc` |
 
+## Continuous integration
+
+GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, build, and the Playwright tests on every push and pull request, using the Node version in `.nvmrc`. It never deploys. Dependabot (`.github/dependabot.yml`) opens monthly dependency and action update PRs; TypeScript and Vitest major versions are skipped because they are pinned on purpose (see [architecture](docs/02-architecture.md)).
+
 ## Local configuration and secrets
 
 `wrangler.jsonc` configures the Worker. Wrangler is Cloudflare's tool; here it only runs the Workers runtime locally through the Cloudflare Vite plugin. Deployment requires a Cloudflare login and explicit approval (see decision D11).

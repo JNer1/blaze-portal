@@ -1,0 +1,26 @@
+# Dependency update PRs. Monthly, matching the dependency review cadence in
+# docs/03-quality-and-risks.md. Security updates are not limited by this
+# schedule; enable them in the repository's security settings.
+version: 2
+updates:
+  - package-ecosystem: npm # also handles pnpm-lock.yaml
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # Pinned on purpose; see docs/02-architecture.md.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: vitest
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
