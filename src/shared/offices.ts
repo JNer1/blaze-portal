@@ -16,9 +16,7 @@ export type Office = {
   heads: readonly OfficeHead[];
 };
 
-// Source: supplied salary request sample (January 2025). Confirm these are
-// current. OVRRI and the Rector's office are added once the current heads are
-// supplied.
+// Confirmed current by the user on 2026-10-27.
 export const OFFICES = {
   ovrf: {
     id: "ovrf",
@@ -39,6 +37,28 @@ export const OFFICES = {
         name: "Prof. Bernard John V. Tongol, Ph.D.",
         title: "Director – RCNAS",
         salutation: "Prof. Tongol",
+      },
+    ],
+  },
+  ovrri: {
+    id: "ovrri",
+    name: "Office of the Vice-Rector for Research and Innovation",
+    heads: [
+      {
+        name: "Rev. Fr. Jannel N. Abogado, O.P., DThScPat",
+        title: "Vice-Rector for Research and Innovation",
+        salutation: "Rev. Fr. Abogado",
+      },
+    ],
+  },
+  rector: {
+    id: "rector",
+    name: "Office of the Rector",
+    heads: [
+      {
+        name: "Very Rev. Fr. Richard G. Ang, O.P., Ph.D.",
+        title: "Rector",
+        salutation: "Very Rev. Fr. Ang",
       },
     ],
   },

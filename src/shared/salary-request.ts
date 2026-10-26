@@ -101,10 +101,18 @@ function hasValidCoverage(value: unknown): boolean {
   );
 }
 
-// "2025-2026": two consecutive years. Entered manually (confirmed 2026-10-27).
+// Two consecutive years, entered manually (confirmed 2026-10-27). A hyphen is
+// accepted because it is easier to type; letters print an en dash.
+const ACADEMIC_YEAR_PATTERN = /^(\d{4})\s*[-–]\s*(\d{4})$/;
+
 export function isAcademicYear(value: string): boolean {
-  const match = /^(\d{4})-(\d{4})$/.exec(value);
+  const match = ACADEMIC_YEAR_PATTERN.exec(value.trim());
   return match !== null && Number(match[2]) === Number(match[1]) + 1;
+}
+
+export function formatAcademicYear(value: string): string {
+  const match = ACADEMIC_YEAR_PATTERN.exec(value.trim());
+  return match ? `${match[1]}–${match[2]}` : value.trim();
 }
 
 const letterPersonSchema = z.object({

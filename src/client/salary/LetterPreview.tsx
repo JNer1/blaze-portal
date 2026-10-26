@@ -3,6 +3,7 @@ import { formatCoverage, formatIsoDate, isYearMonth } from "@/shared/months";
 import { formatTin, normalizeTin } from "@/shared/tin";
 import { OFFICES } from "@/shared/offices";
 import { getProject } from "@/shared/projects";
+import { formatAcademicYear } from "@/shared/salary-request";
 import { rowTotal, type SalaryForm } from "./form-state";
 
 function orPlaceholder(value: string, placeholder: string) {
@@ -42,7 +43,7 @@ export function LetterPreview({ form }: { form: SalaryForm }) {
           UST: {form.lePrefix.trim()}
           {le || <span className="text-neutral-400">[LE number]</span>}
         </p>
-        <p>A.Y. {orPlaceholder(form.academicYear, "yyyy-yyyy")}</p>
+        <p>A.Y. {orPlaceholder(formatAcademicYear(form.academicYear), "yyyy–yyyy")}</p>
       </div>
       <p className="mt-4">{safeDate(form.requestDate) ?? orPlaceholder("", "Date")}</p>
 

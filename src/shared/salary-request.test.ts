@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   calculateStaffTotal,
+  formatAcademicYear,
   emptyChecklist,
   salaryRequestSchema,
   summarizeChecklist,
@@ -19,14 +20,19 @@ describe("salaryRequestSchema", () => {
     expect(parsed.staff.map((s) => s.tin)).toEqual(["000111222", "000333444000"]);
   });
 
-  it.each(["", "2025-2026"])("accepts academic year %j", (academicYear) => {
+  it.each(["", "2025-2026", "2025–2026", "2025 - 2026"])("accepts academic year %j", (academicYear) => {
     expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([]);
   });
 
-  it.each(["2025-2027", "2025", "25-26", "2025–2026"])("rejects academic year %j", (academicYear) => {
+  it.each(["2025-2027", "2025", "25-26", "2026-2025"])("rejects academic year %j", (academicYear) => {
     expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([
       { path: "academicYear", message: "Use consecutive years like 2025-2026." },
     ]);
+  });
+
+  it("prints academic years with an en dash", () => {
+    expect(formatAcademicYear("2025-2026")).toBe("2025–2026");
+    expect(formatAcademicYear("2025 – 2026")).toBe("2025–2026");
   });
 
   it("rejects unknown projects and a blank LE prefix", () => {

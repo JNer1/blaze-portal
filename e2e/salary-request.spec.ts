@@ -73,7 +73,7 @@ test("shows DRAFT without an LE, then the prefixed LE and academic year", async 
 
   await page.getByLabel("LE number").fill("LE0001");
   await page.getByLabel("Academic year").fill("2026-2027");
-  await expect(header).toHaveText("UST: S037-00-LE0001A.Y. 2026-2027");
+  await expect(header).toHaveText("UST: S037-00-LE0001A.Y. 2026–2027");
   await expect(preview).not.toContainText("DRAFT – NO LE");
 
   await page.getByLabel("LE prefix").fill("S999-01-");

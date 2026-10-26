@@ -22,11 +22,9 @@ export const PROJECTS = {
     title:
       "Evaluation of Bacteriolytic Activity of Phage-encoded Endolysins against Staphylococcus aureus",
     titleItalics: ["Staphylococcus aureus"],
-    // Spelling ("EVALUTATION") is as registered; do not correct.
-    accountName: "FCDU-RCNAS-DOST-NRCP-EVALUTATION OF BACTERIOLYTIC ACTIVITY",
+    accountName: "FCDU-RCNAS-DOST-NRCP-EVALUATION OF BACTERIOLYTIC ACTIVITY",
     lePrefix: "S037-00-",
-    // As printed in the supplied salary request sample.
-    projectLeader: { name: "Prof. Donna May D. Papa, PhD", title: "Project Leader - [BlAzE Project]" },
+    projectLeader: { name: "Prof. Donna May D. Papa, PhD", title: "Project Leader – BlAzE Project" },
   },
 } as const satisfies Record<string, Project>;
 
