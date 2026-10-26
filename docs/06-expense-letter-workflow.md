@@ -40,7 +40,7 @@ Separate stable office identity from the person currently holding office. Propos
 1. Create an expense-related preparation request; select an expense category and applicable scenario, such as cash advance versus liquidation for travel.
 2. Show its source-backed, advisory checklist and unresolved applicability questions. For salary, track guidance per staff member. Missing or not-applicable supporting items do not block generation. Supporting documents are obtained separately; the salary output is its request letter only.
 3. Use the reviewed workflow for the selected category. Salary produces one OVRF-addressed request letter following the reviewed sample template. Enter its single RCNAS-issued LE value; distinct letters always require distinct LE numbers.
-4. Let staff review the planned letter's recipient, signatories, purpose, salary rows, and actual enclosures before generation. Add further letters only when another category's reviewed workflow requires them.
+4. Let staff review the planned letter's recipient, signatories, purpose, and salary rows before generation (salary letters carry no enclosure list). Add further letters only when another category's reviewed workflow requires them.
 5. Populate a protected, approved template using reusable request/project data. Preserve output provenance and preparation state; reconcile failed or uncertain attempts before retrying. No multi-letter packet implementation is needed for salary.
 6. Staff obtain endorsements/signatures through the actual institutional process. A generated letter is not evidence of endorsement or signature. Electronic signing, automatic submission, and approval workflow automation remain outside this proposed MVP.
 

@@ -25,7 +25,7 @@ The PDF includes distinct salary, gratuity/hazard-pay, and honorarium letters ad
 
 The salary table contains name, designation, TIN, monthly amount, duration/coverage, and total amount. Coverage can differ between staff within the same request. The sample mentions the approved Line-Item Budget as an enclosure even though that item is not one of the four Salary worksheet rows. Treat enclosure text and checklist guidance as separate concepts; confirm what is actually enclosed before asserting it in a letter.
 
-Confirmed 2026-10-26: salary letters do not always have enclosures. The Line-Item Budget enclosure in the sample was a special case for requesting several months of salary. Supporting documents are always submitted together with the letter but are not mentioned in it, because the checklist itself is submitted with the letter. The form therefore treats enclosures as optional (none by default), suggests only the approved Line-Item Budget, allows other items, and never lists checklist documents in the letter. Whether the app should later print the submitted checklist is not in scope for this slice.
+Confirmed 2026-10-26: salary letters do not always have enclosures; the Line-Item Budget in the sample was a special case for a multi-month request. Staff call every attachment a supporting document, and supporting documents are submitted with the letter and its checklist without being listed in the letter. User decision 2026-10-26: **no separate enclosures section for now.** The form and generated letter have no enclosure list; a one-off reference such as the Line-Item Budget can be added by editing the generated document. Revisit only if staff ask for it.
 
 Some sample LE headers appear incomplete; do not treat them as valid issued identifiers or infer a numbering scheme. Names, TINs, salaries, dates, and project references in the example are source material, not defaults, fixtures, or proof of current settings. No authorization to reuse the PDF as an automated test fixture is inferred.
 
@@ -46,7 +46,7 @@ Missing supporting items are different from an incomplete generation attempt: th
 
 ## Proposed inputs and review
 
-- Shared request: project/display name, funding/charge reference, request date, purpose/wording, actual enclosures, selected staff, and officeholder/template versions.
+- Shared request: project/display name, funding/charge reference, request date, purpose/wording, selected staff, and officeholder/template versions.
 - Per staff: name, designation, required identifier fields, coverage dates or month/year range, monthly PHP amount, payable duration, requested total, and advisory checklist states/notes.
 - Per letter: destination, LE number as issued, reviewed recipient/title, body/template, and prescribed signature blocks.
 
@@ -66,7 +66,7 @@ Confirmed 2026-10-26: one salary payment covers one whole month. A request may c
 - Money is stored and calculated as integer centavos; amounts display as PHP with two decimals. No floating-point arithmetic.
 - Partial months, prorating, deductions, and benefits are out of scope. The form accepts only whole months. This is salary-request preparation, not payroll processing or an accounting ledger. No gratuity, hazard-pay, or honorarium calculations are included in this slice.
 
-Review the request letter, including all staff rows, individualized periods, amounts, actual enclosure statements, names/titles, LE placement, and signature blocks. Retain the sample's Dr. Papa and Dr. Tongol blocks as the proposed request-letter layout, subject to template review; the correction changes the number/type of letters, not an explicitly supplied replacement signature layout. Changes to request data must identify previously generated output as based on an earlier revision; regenerated documents preserve prior provenance.
+Review the request letter, including all staff rows, individualized periods, amounts, names/titles, LE placement, and signature blocks. Retain the sample's Dr. Papa and Dr. Tongol blocks as the proposed request-letter layout, subject to template review; the correction changes the number/type of letters, not an explicitly supplied replacement signature layout. Changes to request data must identify previously generated output as based on an earlier revision; regenerated documents preserve prior provenance.
 
 ## LE handling — one issued number per individual letter
 
@@ -84,7 +84,7 @@ Review the request letter, including all staff rows, individualized periods, amo
 4. Different staff coverage/duration and exact PHP amounts are rendered correctly under the agreed calculation rules. Unsupported prorating is visibly unresolved.
 5. Unreviewed, missing, and not-applicable checklist items remain visible per staff and do not prevent generation. No supporting document is fabricated or required to be uploaded.
 6. The finalized request letter shows its single entered, RCNAS-issued LE value at the top. Saving an incomplete draft does not allocate a number. Distinct letters must not share an LE number, even within the same request.
-7. Enclosure wording reflects user-reviewed enclosures; an unchecked checklist does not silently produce a false statement that all requirements are attached.
+7. The letter contains no enclosure list (decision 2026-10-26) and makes no statement that supporting documents are attached or complete.
 8. The output retains template/input/officeholder/LE snapshots. Failed or uncertain generation remains distinguishable from success, and recovery does not silently create a duplicate letter or assign a new LE.
 9. Tests use synthetic people, identifiers, amounts, and project references. Existing authentication, project-access, audit, and template-protection criteria continue to apply.
 

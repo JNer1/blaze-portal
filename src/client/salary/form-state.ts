@@ -31,7 +31,6 @@ export type SalaryForm = {
   chargeReference: string;
   recipient: { name: string; title: string };
   signatories: [{ name: string; title: string }, { name: string; title: string }];
-  enclosures: string[];
   staff: StaffForm[];
 };
 
@@ -67,7 +66,6 @@ export function initialForm(): SalaryForm {
       { name: "", title: "" },
       { name: "", title: "" },
     ],
-    enclosures: [],
     staff: [emptyStaff()],
   };
 }
@@ -80,7 +78,6 @@ export function toRequestInput(form: SalaryForm): SalaryRequestInput {
     chargeReference: form.chargeReference,
     recipient: form.recipient,
     signatories: form.signatories,
-    enclosures: form.enclosures,
     staff: form.staff.map((row) => {
       const amount = parsePesoAmount(row.monthly);
       return {

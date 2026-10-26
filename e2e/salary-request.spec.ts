@@ -91,17 +91,11 @@ test("missing or unreviewed checklist items never block the preview or the check
   await expect(page.getByRole("article", { name: "Letter preview" })).toContainText("Bea Example");
 });
 
-test("lists only the enclosures that were selected", async ({ page }) => {
-  const preview = page.getByRole("article", { name: "Letter preview" });
-  await expect(preview).not.toContainText("Enclosed are");
+test("the letter has no enclosure paragraph", async ({ page }) => {
+  await fillValidRequest(page);
 
-  await page.getByRole("checkbox", { name: "Approved Line-Item Budget" }).check();
-  await page.getByLabel("Other enclosure").fill("Sample Memo (synthetic)");
-  await page.getByRole("button", { name: "Add", exact: true }).click();
-
-  await expect(preview.getByRole("listitem")).toHaveText(["Approved Line-Item Budget", "Sample Memo (synthetic)"]);
-  await expect(preview).not.toContainText("Disbursement Voucher");
-  await expect(page.getByRole("checkbox", { name: "Disbursement Voucher" })).toHaveCount(0);
+  await expect(page.getByRole("article", { name: "Letter preview" })).not.toContainText(/enclos/i);
+  await expect(page.getByText(/enclosure/i)).toHaveCount(0);
 });
 
 test("shows field errors and the server rejects the same input", async ({ page }) => {

@@ -92,17 +92,6 @@ export function LetterPreview({ form }: { form: SalaryForm }) {
         </tbody>
       </table>
 
-      {form.enclosures.length > 0 && (
-        <div className="mt-3">
-          <p>Enclosed are the following documents:</p>
-          <ol className="ml-5 list-decimal">
-            {form.enclosures.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ol>
-        </div>
-      )}
-
       <p className="mt-3">Thank you very much.</p>
       <p className="mt-3">Respectfully yours,</p>
 

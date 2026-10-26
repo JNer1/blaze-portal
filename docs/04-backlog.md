@@ -60,7 +60,7 @@ Acceptance: source guidance matches the reviewed synthetic example; per-staff no
 
 **U06b — Configure the salary request letter and LE entry**
 
-Plan: configure one OVRF-addressed salary request letter with reviewed recipient/signature details, enclosures, and one externally issued LE field. Never allocate official LE values. Distinct letters require distinct LE values; do not assume same-letter revision/reissue behavior.
+Plan: configure one OVRF-addressed salary request letter with reviewed recipient/signature details and one externally issued LE field. Never allocate official LE values. Distinct letters require distinct LE values; do not assume same-letter revision/reissue behavior.
 
 Acceptance: exactly one salary request-letter plan is produced; no extra cover letter is added; LE entry is associated with the letter; historical snapshots survive officeholder changes. Dependencies: U06a and reviewed salary template/LE behavior.
 
@@ -72,7 +72,7 @@ Acceptance: valid synthetic input round-trips; invalid data is rejected server-s
 
 **U07a — Local salary request form and preview (implemented 2026-10-26, awaiting review)**
 
-Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; optional enclosures (none by default; supporting documents are never listed in the letter); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
+Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
 
 **U08 — Generate and reconcile a Google document**
 

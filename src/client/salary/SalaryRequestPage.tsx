@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/client/components/ui/button";
 import { Field } from "@/client/components/Field";
-import { Input } from "@/client/components/ui/input";
 import {
   CHECKLIST_STATUS_LABELS,
   summarizeChecklist,
@@ -10,10 +9,6 @@ import {
 import { emptyStaff, initialForm, rowTotal, toRequestInput, validateForm, type SalaryForm, type StaffForm } from "./form-state";
 import { LetterPreview } from "./LetterPreview";
 import { StaffRowCard } from "./StaffRowCard";
-
-// Most salary letters have no enclosures. Supporting documents are submitted
-// with the checklist and are never listed in the letter (confirmed 2026-10-26).
-const SUGGESTED_ENCLOSURES = ["Approved Line-Item Budget"];
 
 type ServerCheck =
   | { state: "idle" }
@@ -27,7 +22,6 @@ export function SalaryRequestPage() {
   const [form, setForm] = useState<SalaryForm>(initialForm);
   const [showAllErrors, setShowAllErrors] = useState(false);
   const [serverCheck, setServerCheck] = useState<ServerCheck>({ state: "idle" });
-  const [customEnclosure, setCustomEnclosure] = useState("");
 
   const errors = useMemo(() => validateForm(form), [form]);
   const checklist = useMemo(() => summarizeChecklist(form.staff), [form.staff]);
@@ -43,19 +37,6 @@ export function SalaryRequestPage() {
 
   const updateStaff = (index: number, row: StaffForm) =>
     update({ staff: form.staff.map((r, i) => (i === index ? row : r)) });
-
-  const toggleEnclosure = (item: string) =>
-    update({
-      enclosures: form.enclosures.includes(item)
-        ? form.enclosures.filter((e) => e !== item)
-        : [...form.enclosures, item],
-    });
-
-  const addCustomEnclosure = () => {
-    const item = customEnclosure.trim();
-    if (item && !form.enclosures.includes(item)) update({ enclosures: [...form.enclosures, item] });
-    setCustomEnclosure("");
-  };
 
   async function checkWithServer() {
     setShowAllErrors(true);
@@ -156,35 +137,6 @@ export function SalaryRequestPage() {
           <Button variant="outline" onClick={() => update({ staff: [...form.staff, emptyStaff()] })}>
             Add staff member
           </Button>
-        </section>
-
-        <section className="space-y-3">
-          <h3 className="text-lg font-semibold">Enclosures (optional)</h3>
-          <p className="text-muted-foreground text-sm">
-            Most salary requests have none. Add only documents the letter itself refers to, such as the approved
-            Line-Item Budget when requesting several months in advance. Supporting documents go with the checklist
-            and are not listed here.
-          </p>
-          <div className="space-y-1.5">
-            {[...new Set([...SUGGESTED_ENCLOSURES, ...form.enclosures])].map((item) => (
-              <label key={item} className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={form.enclosures.includes(item)} onChange={() => toggleEnclosure(item)} />
-                {item}
-              </label>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <Input
-              aria-label="Other enclosure"
-              placeholder="Other enclosure"
-              value={customEnclosure}
-              onChange={(e) => setCustomEnclosure(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addCustomEnclosure()}
-            />
-            <Button variant="outline" onClick={addCustomEnclosure}>
-              Add
-            </Button>
-          </div>
         </section>
 
         <section aria-label="Checklist summary" className="bg-muted space-y-2 rounded-lg p-4 text-sm">

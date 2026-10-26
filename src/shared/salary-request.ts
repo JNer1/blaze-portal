@@ -113,8 +113,6 @@ export const salaryRequestSchema = z.object({
   signatories: z
     .array(z.object({ name: optionalText(200), title: optionalText(200) }))
     .length(2),
-  // Only items the aide confirmed are actually enclosed. Independent of the checklist.
-  enclosures: z.array(requiredText(200, "Enclosure cannot be blank.")).max(20),
   staff: z.array(salaryStaffSchema).min(1, "Add at least one staff member.").max(50),
 });
 

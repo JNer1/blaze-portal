@@ -12,7 +12,6 @@ export function syntheticSalaryRequest(): SalaryRequestInput {
       { name: "Sample Signatory One", title: "Project Leader" },
       { name: "Sample Signatory Two", title: "Program Leader" },
     ],
-    enclosures: ["Approved Line-Item Budget"],
     staff: [
       {
         name: "Alex Sample",
