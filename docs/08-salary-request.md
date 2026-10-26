@@ -46,19 +46,23 @@ Missing supporting items are different from an incomplete generation attempt: th
 
 ## Printed checklist (confirmed 2026-10-26)
 
-The salary checklist is printed and submitted alongside the request letter. It must look exactly like the **Salary** sheet of the supplied workbook ("PROJECT DISBURSEMENTS" / "CHECKLIST OF DOCUMENTARY REQUIREMENTS FOR GRANTS-IN-AID PROGRAM", A4 portrait).
+The salary checklist is printed and submitted alongside the request letter. It must match the **Salary** sheet of the supplied workbook in formatting and content; a pixel-perfect copy is not required ("PROJECT DISBURSEMENTS" / "CHECKLIST OF DOCUMENTARY REQUIREMENTS FOR GRANTS-IN-AID PROGRAM", A4 portrait).
 
 Only three fields are filled in by the app:
 
 | Workbook cell | Field | Source |
 |---|---|---|
 | B4 (merged B4:H6) | Name of Payee | Staff member's name |
-| I4 (merged I4:M6) | Project Duration | To be confirmed (see questions) |
+| I4 (merged I4:M6) | Project Duration | The project's overall duration, formatted like `January 2025 – December 2026`. Shared by every payee under the same project. |
 | B7 (merged B7:Q7) | PROJECT TITLE | Request's project title |
 
-Everything else prints exactly as in the workbook and is left blank for manual completion: CONTROL NO., the agency check columns (Implementing Agency, Monitoring Agency, SPD/Project Team, Accounting of the Source Agency), signatures, dates, and remarks. The app's internal checklist statuses are tracking aids and are **not** printed onto the sheet.
+**One checklist per payee:** a request for 3 staff produces 1 request letter and 3 checklists.
 
-Proposed approach (needs approval): keep the Salary sheet as a protected **Google Sheets master template** in the project Google account. For each payee the app copies it, writes the three cells, and the copy is printed or exported to PDF alongside the letter. This preserves the workbook's layout more faithfully than rebuilding it in HTML, and fits the existing Google Docs generation design (D05, U01, U08). The xlsx → Google Sheets conversion must be checked visually once; any formatting fixes are made to the master, not by the app.
+Everything else prints as in the workbook and is left blank for manual completion: CONTROL NO., the agency check columns (Implementing Agency, Monitoring Agency, SPD/Project Team, Accounting of the Source Agency), signatures, dates, and remarks. The app's internal checklist statuses are tracking aids and are **not** printed onto the sheet.
+
+Approach (approved by the user 2026-10-26): keep the Salary sheet as a protected **Google Sheets master template** in the project Google account. For each payee the app copies it, writes the three cells, and the copy is printed or exported to PDF alongside the letter. This preserves the workbook's layout more faithfully than rebuilding it in HTML, and fits the existing Google Docs generation design (D05, U01, U08). The xlsx → Google Sheets conversion is checked visually once for matching formatting and content; any fixes are made to the master, not by the app.
+
+Project duration belongs to the project, not to each request. Until project records exist (U03), the request form will take it as a start/end month input when U08a is built; afterwards it comes from the project's settings.
 
 ## Proposed inputs and review
 

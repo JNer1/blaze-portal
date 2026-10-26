@@ -74,11 +74,11 @@ Acceptance: valid synthetic input round-trips; invalid data is rejected server-s
 
 Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
 
-**U08a — Generate the printed salary checklist (proposed)**
+**U08a — Generate the printed salary checklist (approach approved 2026-10-26)**
 
-Plan: register the workbook's Salary sheet as a protected Google Sheets master; for each payee, copy it and fill Name of Payee, Project Duration, and Project Title only. Leave all other cells as in the master.
+Plan: register the workbook's Salary sheet as a protected Google Sheets master; for each payee, copy it and fill Name of Payee, Project Duration (project's overall duration, e.g. `January 2025 – December 2026`), and Project Title only. Leave all other cells as in the master.
 
-Acceptance: one checklist per payee in the request; output is visually identical to the master apart from the three fields; the master is unchanged; no internal checklist status is written onto the sheet. Dependencies: U01 (including Sheets access under the chosen scope) and the template-registration approach in U06.
+Acceptance: one checklist per payee in the request (3 staff → 1 letter + 3 checklists); output matches the master's formatting and content apart from the three fields (pixel-perfect match not required); the master is unchanged; no internal checklist status is written onto the sheet. Dependencies: U01 (including Sheets access under the chosen scope) and the template-registration approach in U06.
 
 **U08 — Generate and reconcile a Google document**
 
