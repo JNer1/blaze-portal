@@ -6,7 +6,7 @@ export function syntheticSalaryRequest(): SalaryRequestInput {
     projectId: "blaze",
     lePrefix: "S037-00-",
     leNumber: "",
-    academicYear: "2026-2027",
+    academicYear: { from: "2026", to: "2027" },
     requestDate: "2026-10-26",
     recipient: { name: "SAMPLE RECIPIENT", title: "Vice-Rector for Finance", salutation: "Sample Recipient" },
     endorser: { name: "Sample Endorser", title: "Director – RCNAS" },

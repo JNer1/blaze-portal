@@ -37,9 +37,9 @@ describe("salary form", () => {
     const form = filledForm();
     form.staff[1]!.tin = "12";
     form.staff[1]!.coverageEnd = "2025-12";
-    form.academicYear = "2025-2027";
+    form.academicYear = { from: "2025", to: "2027" };
     expect(Object.keys(validateForm(form)).sort()).toEqual([
-      "academicYear",
+      "academicYear.to",
       "staff.1.coverageEnd",
       "staff.1.tin",
     ]);

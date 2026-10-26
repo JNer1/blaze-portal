@@ -100,14 +100,35 @@ export function SalaryRequestPage() {
               placeholder="LE1356"
               hint="Exactly as issued by RCNAS. Leave blank while waiting; the letter stays a draft."
             />
-            <Field
-              label="Academic year"
-              value={form.academicYear}
-              onChange={(v) => update({ academicYear: v })}
-              error={errorFor("academicYear", form.academicYear)}
-              placeholder="2025-2026"
-              className="sm:w-36"
-            />
+            <div className="sm:col-span-2">
+              <p className="mb-1.5 text-sm font-medium">Academic year</p>
+              <div className="flex items-start gap-2">
+                <Field
+                  label="A.Y. from"
+                  value={form.academicYear.from}
+                  onChange={(from) =>
+                    // Fill in the following year automatically; it stays editable.
+                    update({
+                      academicYear: { from, to: /^\d{4}$/.test(from) ? String(Number(from) + 1) : form.academicYear.to },
+                    })
+                  }
+                  error={errorFor("academicYear.from", form.academicYear.from)}
+                  inputMode="numeric"
+                  placeholder="2025"
+                  className="w-32"
+                />
+                <span className="pt-8">–</span>
+                <Field
+                  label="A.Y. to"
+                  value={form.academicYear.to}
+                  onChange={(to) => update({ academicYear: { ...form.academicYear, to } })}
+                  error={errorFor("academicYear.to", form.academicYear.to)}
+                  inputMode="numeric"
+                  placeholder="2026"
+                  className="w-32"
+                />
+              </div>
+            </div>
             <Field
               label="Request date"
               type="date"

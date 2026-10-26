@@ -20,19 +20,26 @@ describe("salaryRequestSchema", () => {
     expect(parsed.staff.map((s) => s.tin)).toEqual(["000111222", "000333444000"]);
   });
 
-  it.each(["", "2025-2026", "2025–2026", "2025 - 2026"])("accepts academic year %j", (academicYear) => {
-    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([]);
+  it.each([
+    ["", ""],
+    ["2025", "2026"],
+  ])("accepts academic year from %j to %j", (from, to) => {
+    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear: { from, to } })).toEqual([]);
   });
 
-  it.each(["2025-2027", "2025", "25-26", "2026-2025"])("rejects academic year %j", (academicYear) => {
-    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear })).toEqual([
-      { path: "academicYear", message: "Use consecutive years like 2025-2026." },
-    ]);
+  it.each([
+    ["2025", "2027", "academicYear.to", "Must be the year after the starting year."],
+    ["2026", "2025", "academicYear.to", "Must be the year after the starting year."],
+    ["2025", "", "academicYear.to", "Enter the ending year."],
+    ["", "2026", "academicYear.from", "Enter the starting year."],
+    ["25", "2026", "academicYear.from", "Enter a 4-digit year."],
+  ])("rejects academic year from %j to %j", (from, to, path, message) => {
+    expect(errorsFor({ ...syntheticSalaryRequest(), academicYear: { from, to } })).toEqual([{ path, message }]);
   });
 
   it("prints academic years with an en dash", () => {
-    expect(formatAcademicYear("2025-2026")).toBe("2025–2026");
-    expect(formatAcademicYear("2025 – 2026")).toBe("2025–2026");
+    expect(formatAcademicYear({ from: "2025", to: "2026" })).toBe("2025–2026");
+    expect(formatAcademicYear({ from: "2025", to: "" })).toBe("");
   });
 
   it("rejects unknown projects and a blank LE prefix", () => {

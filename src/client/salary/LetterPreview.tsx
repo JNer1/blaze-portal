@@ -5,6 +5,7 @@ import { OFFICES } from "@/shared/offices";
 import { getProject } from "@/shared/projects";
 import { formatAcademicYear } from "@/shared/salary-request";
 import { rowTotal, type SalaryForm } from "./form-state";
+import { ProjectTitle } from "./ProjectTitle";
 
 function orPlaceholder(value: string, placeholder: string) {
   const text = value.trim();
@@ -57,8 +58,8 @@ export function LetterPreview({ form }: { form: SalaryForm }) {
       <p className="mt-3">Greetings!</p>
 
       <p className="mt-3 text-justify">
-        In line with the {project.shortName}: {project.accountName} we would like to request the following amounts
-        in check for the salaries of the following research staff of the project:
+        In line with the project, <ProjectTitle project={project} /> ({project.shortName}), we would like to request
+        the following amounts in check for the salaries of the following research staff of the project:
       </p>
 
       <table className="mt-3 w-full border-collapse text-[10px]">

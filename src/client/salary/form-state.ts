@@ -32,7 +32,7 @@ export type SalaryForm = {
   projectId: ProjectId;
   lePrefix: string;
   leNumber: string;
-  academicYear: string;
+  academicYear: { from: string; to: string };
   requestDate: string;
   recipient: LetterPerson & { salutation: string };
   endorser: LetterPerson;
@@ -72,7 +72,7 @@ export function initialForm(projectId: ProjectId = "blaze"): SalaryForm {
     projectId,
     lePrefix: PROJECTS[projectId].lePrefix,
     leNumber: "",
-    academicYear: "",
+    academicYear: { from: "", to: "" },
     requestDate: todayIso(),
     recipient: personFromHead(OFFICES.ovrf.heads[0]),
     endorser: { name: rcnasHead.name, title: rcnasHead.title },

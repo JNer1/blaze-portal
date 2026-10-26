@@ -46,12 +46,12 @@ Missing supporting items are different from an incomplete generation attempt: th
 
 ## Letter header, signatures, and project settings (confirmed 2026-10-27)
 
-- **LE header:** `UST: S037-00-[LE#]`, with `A.Y. [yyyy]-[yyyy]` on the line below. `S037-00-` is fixed for BlAzE but can be overridden per letter. The LE# is entered exactly as issued by RCNAS (for example `LE1356`). The academic year is entered manually and must be two consecutive years; a hyphen is accepted when typing and the letter prints an en dash (`A.Y. 2025–2026`).
+- **LE header:** `UST: S037-00-[LE#]`, with `A.Y. [yyyy]-[yyyy]` on the line below. `S037-00-` is fixed for BlAzE but can be overridden per letter. The LE# is entered exactly as issued by RCNAS (for example `LE1356`). The academic year is entered manually in two fields, **From** and **To** (To fills in as the following year and stays editable); the years must be consecutive and the letter prints `A.Y. 2025–2026` with an en dash.
 - **Signature levels:** the Project Leader signs every letter ("Respectfully,"). Signatories outside the research group (RCNAS, Vice-Rectors, Rector) appear under **"Endorsed by:"**. For salary requests, **only the RCNAS head endorses**, because the letter goes only as far as OVRF. The recipient is the OVRF head.
 - **Office directory:** office heads are picked from a directory (name, title, salutation; acting heads allowed); fields stay editable for one-off overrides, and each letter keeps a copy of the names used. Directory confirmed current on 2026-10-27: OVRF, RCNAS, OVRRI, and the Rector's office. Only OVRF (recipient) and RCNAS (endorser) appear on salary letters.
 - **Project settings:** the project title (*Staphylococcus aureus* in italics), account name (formerly "charge reference"), LE prefix, and Project Leader come from project settings, not the form. BlAzE is the only project for now; the Project Leader can change, so these must become editable project details (planned with U03–U05). The account name is `FCDU-RCNAS-DOST-NRCP-EVALUATION OF BACTERIOLYTIC ACTIVITY` (the "EVALUTATION" spelling in the sample was a typo, corrected 2026-10-27). The Project Leader prints as `Project Leader – BlAzE Project`.
 
-Letter wording in the preview follows the sample letter's voice ("Greetings!", "In line with the BlAzE Project: <account name> …", "This will be charged under the requested FCDU account …"), pending the official Google Docs template.
+Letter wording in the preview follows the sample letter's voice ("Greetings!", "In line with the project, <full project title> (BlAzE Project), …" — full title rather than the account name, per user 2026-10-27 — "This will be charged under the requested FCDU account …"), pending the official Google Docs template.
 
 ## Printed checklist (confirmed 2026-10-26)
 

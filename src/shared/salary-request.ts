@@ -101,18 +101,30 @@ function hasValidCoverage(value: unknown): boolean {
   );
 }
 
-// Two consecutive years, entered manually (confirmed 2026-10-27). A hyphen is
-// accepted because it is easier to type; letters print an en dash.
-const ACADEMIC_YEAR_PATTERN = /^(\d{4})\s*[-–]\s*(\d{4})$/;
+// Academic year: entered manually as two consecutive years (confirmed
+// 2026-10-27). Both blank is allowed while drafting. Printed with an en dash.
+const isYear = (value: string) => /^\d{4}$/.test(value);
 
-export function isAcademicYear(value: string): boolean {
-  const match = ACADEMIC_YEAR_PATTERN.exec(value.trim());
-  return match !== null && Number(match[2]) === Number(match[1]) + 1;
-}
+const academicYearSchema = z
+  .object({
+    from: z.string().trim().refine((v) => v === "" || isYear(v), "Enter a 4-digit year."),
+    to: z.string().trim().refine((v) => v === "" || isYear(v), "Enter a 4-digit year."),
+  })
+  .refine((ay) => !(ay.from === "" && ay.to !== ""), { path: ["from"], message: "Enter the starting year." })
+  .refine((ay) => !(ay.to === "" && ay.from !== ""), { path: ["to"], message: "Enter the ending year." })
+  .refine((ay) => Number(ay.to) === Number(ay.from) + 1, {
+    path: ["to"],
+    message: "Must be the year after the starting year.",
+    when: ({ value }) => {
+      const ay = value as { from?: unknown; to?: unknown };
+      return typeof ay.from === "string" && typeof ay.to === "string" && isYear(ay.from.trim()) && isYear(ay.to.trim());
+    },
+  });
 
-export function formatAcademicYear(value: string): string {
-  const match = ACADEMIC_YEAR_PATTERN.exec(value.trim());
-  return match ? `${match[1]}–${match[2]}` : value.trim();
+export function formatAcademicYear(ay: { from: string; to: string }): string {
+  const from = ay.from.trim();
+  const to = ay.to.trim();
+  return from && to ? `${from}–${to}` : "";
 }
 
 const letterPersonSchema = z.object({
@@ -129,10 +141,7 @@ export const salaryRequestSchema = z.object({
   // by RCNAS; blank means the letter is still a draft.
   lePrefix: requiredText(50, "Enter the LE prefix."),
   leNumber: optionalText(50),
-  academicYear: z
-    .string()
-    .trim()
-    .refine((v) => v === "" || isAcademicYear(v), "Use consecutive years like 2025-2026."),
+  academicYear: academicYearSchema,
   requestDate: z.iso.date("Enter the request date."),
   // Copies of the names used, so later directory changes don't alter this letter.
   recipient: letterPersonSchema.extend({ salutation: optionalText(200) }),

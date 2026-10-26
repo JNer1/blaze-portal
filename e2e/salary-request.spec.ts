@@ -72,7 +72,8 @@ test("shows DRAFT without an LE, then the prefixed LE and academic year", async 
   await expect(preview).toContainText("DRAFT – NO LE");
 
   await page.getByLabel("LE number").fill("LE0001");
-  await page.getByLabel("Academic year").fill("2026-2027");
+  await page.getByLabel("A.Y. from").fill("2026");
+  await expect(page.getByLabel("A.Y. to")).toHaveValue("2027");
   await expect(header).toHaveText("UST: S037-00-LE0001A.Y. 2026–2027");
   await expect(preview).not.toContainText("DRAFT – NO LE");
 
@@ -81,8 +82,9 @@ test("shows DRAFT without an LE, then the prefixed LE and academic year", async 
 });
 
 test("rejects an academic year that is not two consecutive years", async ({ page }) => {
-  await page.getByLabel("Academic year").fill("2026-2028");
-  await expect(page.getByText("Use consecutive years like 2025-2026.")).toBeVisible();
+  await page.getByLabel("A.Y. from").fill("2026");
+  await page.getByLabel("A.Y. to").fill("2028");
+  await expect(page.getByText("Must be the year after the starting year.")).toBeVisible();
 });
 
 test("project details come from settings, not the form", async ({ page }) => {
@@ -93,7 +95,10 @@ test("project details come from settings, not the form", async ({ page }) => {
   const info = page.getByRole("region", { name: "Project" });
   await expect(info).toContainText(project.title);
   await expect(info.locator("em")).toHaveText("Staphylococcus aureus");
-  await expect(page.getByRole("article", { name: "Letter preview" })).toContainText(project.accountName);
+  const preview = page.getByRole("article", { name: "Letter preview" });
+  await expect(preview).toContainText(`In line with the project, ${project.title} (${project.shortName}), we would like`);
+  await expect(preview.locator("em")).toHaveText("Staphylococcus aureus");
+  await expect(preview).toContainText(project.accountName);
 });
 
 test("signed by the project leader and endorsed by the RCNAS head", async ({ page }) => {
