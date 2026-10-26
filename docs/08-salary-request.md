@@ -25,6 +25,8 @@ The PDF includes distinct salary, gratuity/hazard-pay, and honorarium letters ad
 
 The salary table contains name, designation, TIN, monthly amount, duration/coverage, and total amount. Coverage can differ between staff within the same request. The sample mentions the approved Line-Item Budget as an enclosure even though that item is not one of the four Salary worksheet rows. Treat enclosure text and checklist guidance as separate concepts; confirm what is actually enclosed before asserting it in a letter.
 
+Confirmed 2026-10-26: salary letters do not always have enclosures. The Line-Item Budget enclosure in the sample was a special case for requesting several months of salary. Supporting documents are always submitted together with the letter but are not mentioned in it, because the checklist itself is submitted with the letter. The form therefore treats enclosures as optional (none by default), suggests only the approved Line-Item Budget, allows other items, and never lists checklist documents in the letter. Whether the app should later print the submitted checklist is not in scope for this slice.
+
 Some sample LE headers appear incomplete; do not treat them as valid issued identifiers or infer a numbering scheme. Names, TINs, salaries, dates, and project references in the example are source material, not defaults, fixtures, or proof of current settings. No authorization to reuse the PDF as an automated test fixture is inferred.
 
 ## Advisory salary checklist
