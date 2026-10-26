@@ -14,7 +14,7 @@ Acceptance: user approves a worked synthetic input/output example and MVP bounda
 
 **U01 — Validate Google integration and free-plan feasibility (first possible Construction unit)**
 
-Plan: using the approved synthetic-data test Google account (standing in for the project account) plus a separate personal test account for staff sign-in, run a bounded technical experiment for `drive.file` sufficiency, template access, OAuth publishing status, scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
+Plan: using the approved synthetic-data test Google account, covering both a Docs letter template and a Sheets checklist template, (standing in for the project account) plus a separate personal test account for staff sign-in, run a bounded technical experiment for `drive.file` sufficiency, template access, OAuth publishing status, scopes, identity/ownership, template copying/replacement, version preservation, partial-failure recovery, and Workers compatibility. Estimate pilot demand and backup cost against current limits.
 
 Acceptance: one synthetic document generated without master modification; effective access and credential revocation checked; retry risks demonstrated; quota sources dated; ownership, required scopes, runtime feasibility, and blockers documented. No production deployment. Dependencies: U00, approved experiment plan and test-resource authorization.
 
@@ -73,6 +73,12 @@ Acceptance: valid synthetic input round-trips; invalid data is rejected server-s
 **U07a — Local salary request form and preview (implemented 2026-10-26, awaiting review)**
 
 Scope delivered: browser form for one salary request with multiple staff; exact centavo amounts; inclusive whole-month coverage including advance months; per-staff totals only; TIN format check; LE entry with DRAFT marking when blank; per-staff advisory checklist and summary; no enclosure list (removed by user decision 2026-10-26); `POST /api/salary-requests/check` revalidates with the same shared schema; placeholder-wording A4 preview. Not included: saving, staff records, sign-in, Google output. The preview wording is a stand-in until the Google Docs template is registered (U06).
+
+**U08a — Generate the printed salary checklist (proposed)**
+
+Plan: register the workbook's Salary sheet as a protected Google Sheets master; for each payee, copy it and fill Name of Payee, Project Duration, and Project Title only. Leave all other cells as in the master.
+
+Acceptance: one checklist per payee in the request; output is visually identical to the master apart from the three fields; the master is unchanged; no internal checklist status is written onto the sheet. Dependencies: U01 (including Sheets access under the chosen scope) and the template-registration approach in U06.
 
 **U08 — Generate and reconcile a Google document**
 

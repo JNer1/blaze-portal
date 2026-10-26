@@ -44,6 +44,22 @@ Proposed summary: show counts by status and identify each person's unreviewed/mi
 
 Missing supporting items are different from an incomplete generation attempt: the salary request letter may be generated while supporting documents remain missing. Such a request should show **letter generated** and its separate checklist summary; it must not be labeled fully approved or ready for submission solely because generation succeeded.
 
+## Printed checklist (confirmed 2026-10-26)
+
+The salary checklist is printed and submitted alongside the request letter. It must look exactly like the **Salary** sheet of the supplied workbook ("PROJECT DISBURSEMENTS" / "CHECKLIST OF DOCUMENTARY REQUIREMENTS FOR GRANTS-IN-AID PROGRAM", A4 portrait).
+
+Only three fields are filled in by the app:
+
+| Workbook cell | Field | Source |
+|---|---|---|
+| B4 (merged B4:H6) | Name of Payee | Staff member's name |
+| I4 (merged I4:M6) | Project Duration | To be confirmed (see questions) |
+| B7 (merged B7:Q7) | PROJECT TITLE | Request's project title |
+
+Everything else prints exactly as in the workbook and is left blank for manual completion: CONTROL NO., the agency check columns (Implementing Agency, Monitoring Agency, SPD/Project Team, Accounting of the Source Agency), signatures, dates, and remarks. The app's internal checklist statuses are tracking aids and are **not** printed onto the sheet.
+
+Proposed approach (needs approval): keep the Salary sheet as a protected **Google Sheets master template** in the project Google account. For each payee the app copies it, writes the three cells, and the copy is printed or exported to PDF alongside the letter. This preserves the workbook's layout more faithfully than rebuilding it in HTML, and fits the existing Google Docs generation design (D05, U01, U08). The xlsx → Google Sheets conversion must be checked visually once; any formatting fixes are made to the master, not by the app.
+
 ## Proposed inputs and review
 
 - Shared request: project/display name, funding/charge reference, request date, purpose/wording, selected staff, and officeholder/template versions.
