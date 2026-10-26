@@ -8,7 +8,7 @@ Each unit below has a preliminary plan and acceptance criteria. Immediately befo
 
 **U00 — Confirm the pilot workflow (Inception continuation)**
 
-Plan: finish the corrected Salary Request walkthrough: one consolidated request letter addressed to OVRF, no additional cover letters, per-staff nonblocking checklists, one RCNAS-issued LE, reviewed template/enclosures, salary fields/calculations, output destination, and baseline effort. Each distinct letter has its own LE; same-letter revision/reissue rules remain open. See [Salary Request](08-salary-request.md). Use descriptions or synthetic examples; private material needs authorization before use as fixtures.
+Plan: finish the corrected Salary Request walkthrough: one consolidated request letter addressed to OVRF, no additional cover letters, per-staff nonblocking checklists, one RCNAS-issued LE, reviewed template, salary fields/calculations, output destination, and baseline effort. Each distinct letter has its own LE; same-letter revision/reissue rules remain open. See [Salary Request](08-salary-request.md). Use descriptions or synthetic examples; private material needs authorization before use as fixtures.
 
 Acceptance: user approves a worked synthetic input/output example and MVP boundary; unknown institutional rules remain explicitly unresolved. Dependencies: Inception feedback.
 
